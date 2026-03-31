@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: YZan_Multi_Agent
+server:
+  port: 18080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
