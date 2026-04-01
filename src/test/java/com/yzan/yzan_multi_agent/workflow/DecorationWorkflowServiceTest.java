@@ -3,6 +3,8 @@ package com.yzan.yzan_multi_agent.workflow;
 import com.yzan.yzan_multi_agent.domain.DecorationPlan;
 import com.yzan.yzan_multi_agent.domain.UserRequirement;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,13 +12,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest
 class DecorationWorkflowServiceTest {
 
+    @Autowired
+    private DecorationWorkflowService service;
 
     @Test
     void shouldExecuteAllAgentsAndReturnResults(){
-
-        DecorationWorkflowService service = new DecorationWorkflowService();
 
         UserRequirement userRequirement = new UserRequirement();
         userRequirement.setHouseType("两室一厅");
@@ -43,5 +46,9 @@ class DecorationWorkflowServiceTest {
         assertFalse(results.getFinalSuggestion().isBlank());
 
     }
+
+
+
+
 
 }

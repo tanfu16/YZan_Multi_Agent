@@ -1,0 +1,16 @@
+package com.yzan.yzan_multi_agent.domain;
+
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * 安全 Agent 处理后的结果
+ */
+@Data
+public class SafetyAnalysisResult {
+
+    private List<String> recommendations;
+    private List<String> risks;
+    private String summary;
+}

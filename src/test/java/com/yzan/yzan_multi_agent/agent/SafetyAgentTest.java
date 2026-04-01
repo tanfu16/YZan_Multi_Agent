@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class LayoutAgentTest {
+class SafetyAgentTest {
 
     @Autowired
-    private LayoutAgent layoutAgent;
+    private SafetyAgent safetyAgent;
 
     @Test
-    void shouldPrintLayoutAgentResultFromFixedRequirement() {
+    void shouldPrintSafetyAgentResultFromFixedRequirement() {
         StructuredRequirement requirement = new StructuredRequirement();
         requirement.setHouseType("两室一厅");
         requirement.setArea(89);
@@ -29,9 +29,9 @@ class LayoutAgentTest {
         requirement.setPriorities(List.of("收纳", "清洁", "通透"));
         requirement.setConstraints(List.of("选择耐脏耐磨材料", "避免复杂吊顶"));
 
-        AgentResult result = layoutAgent.execute(requirement);
+        AgentResult result = safetyAgent.execute(requirement);
 
-        System.out.println("==== LayoutAgent Result ====");
+        System.out.println("==== SafetyAgent Result ====");
         System.out.println("agentType = " + result.getAgentType());
         System.out.println("status = " + result.getAgentExecutionStatus());
         System.out.println("recommendations = " + result.getRecommendations());

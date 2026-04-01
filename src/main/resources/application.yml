@@ -1,6 +1,9 @@
 spring:
   application:
     name: YZan_Multi_Agent
+  profiles:
+    active: local
+
 server:
   port: 18080
 
