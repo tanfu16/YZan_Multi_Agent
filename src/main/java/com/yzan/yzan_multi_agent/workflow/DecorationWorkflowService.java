@@ -6,10 +6,12 @@ import com.yzan.yzan_multi_agent.domain.AgentResult;
 import com.yzan.yzan_multi_agent.domain.DecorationPlan;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
 import com.yzan.yzan_multi_agent.domain.UserRequirement;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DecorationWorkflowService {
 
     private final RequirementAgent requirementAgent = new RequirementAgent();
