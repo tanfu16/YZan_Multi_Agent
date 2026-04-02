@@ -19,36 +19,38 @@ class DecorationWorkflowServiceTest {
     private DecorationWorkflowService service;
 
     @Test
-    void shouldExecuteAllAgentsAndReturnResults(){
-
+    void shouldExecuteAllAgentsAndReturnResults() {
         UserRequirement userRequirement = new UserRequirement();
         userRequirement.setHouseType("两室一厅");
         userRequirement.setArea(200);
-        userRequirement.setBudget(new BigDecimal("180000"));
-        userRequirement.setFamilyMembers(List.of("夫妻", "女儿", "宠物"));
+        userRequirement.setBudget(new BigDecimal("80000"));
+        userRequirement.setFamilyMembers(List.of("夫妻", "女儿", "狗"));
         userRequirement.setStylePreference("简约风");
-        userRequirement.setSpecialNeeds(List.of("收纳多", "好打理"));
-        userRequirement.setRawDescription("预算18万，装修一套200平方的房子，家里有夫妻和儿子，还有一只宠物，要求简约风，收纳多并且好打理");
-        DecorationPlan results = service.execute(userRequirement);
+        userRequirement.setSpecialNeeds(List.of("清洁"));
+        userRequirement.setRawDescription("预算8万，装修一套200平方米的房子，家里有夫妻、女儿和一只狗，要求好打理");
 
-        assertNotNull(results);
+        DecorationPlan result = service.execute(userRequirement);
 
-        assertNotNull(results.getSummary());
-        assertFalse(results.getSummary().isBlank());
+        assertNotNull(result);
 
-        assertNotNull(results.getKeyRecommendations());
-        assertFalse(results.getKeyRecommendations().isEmpty());
+        assertNotNull(result.getSummary());
+        assertFalse(result.getSummary().isBlank());
 
-        assertNotNull(results.getConflicts());
-        assertFalse(results.getConflicts().isEmpty());
+        assertNotNull(result.getConflicts());
 
-        assertNotNull(results.getFinalSuggestion());
-        assertFalse(results.getFinalSuggestion().isBlank());
+        assertNotNull(result.getPrimaryOption());
+        assertNotNull(result.getPrimaryOption().getName());
+        assertFalse(result.getPrimaryOption().getName().isBlank());
+
+        assertNotNull(result.getPrimaryOption().getRecommendations());
+        assertFalse(result.getPrimaryOption().getRecommendations().isEmpty());
+
+        assertNotNull(result.getAlternativeOptions());
+        assertFalse(result.getAlternativeOptions().isEmpty());
+
+        assertNotNull(result.getDecisionReason());
+        assertFalse(result.getDecisionReason().isBlank());
+
 
     }
-
-
-
-
-
 }
