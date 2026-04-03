@@ -32,25 +32,40 @@ class DecorationWorkflowServiceTest {
         DecorationPlan result = service.execute(userRequirement);
 
         assertNotNull(result);
-
         assertNotNull(result.getSummary());
         assertFalse(result.getSummary().isBlank());
-
         assertNotNull(result.getConflicts());
-
         assertNotNull(result.getPrimaryOption());
         assertNotNull(result.getPrimaryOption().getName());
         assertFalse(result.getPrimaryOption().getName().isBlank());
-
         assertNotNull(result.getPrimaryOption().getRecommendations());
         assertFalse(result.getPrimaryOption().getRecommendations().isEmpty());
-
         assertNotNull(result.getAlternativeOptions());
         assertFalse(result.getAlternativeOptions().isEmpty());
-
         assertNotNull(result.getDecisionReason());
         assertFalse(result.getDecisionReason().isBlank());
+    }
 
+    @Test
+    void shouldPrintParallelAgentRagWorkflowResult() {
+        UserRequirement userRequirement = new UserRequirement();
+        userRequirement.setHouseType("三室两厅");
+        userRequirement.setArea(118);
+        userRequirement.setBudget(new BigDecimal("180000"));
+        userRequirement.setFamilyMembers(List.of("夫妻", "孩子", "宠物"));
+        userRequirement.setStylePreference("现代简约");
+        userRequirement.setSpecialNeeds(List.of("安全", "收纳", "好打理", "避免尖角", "重视防滑", "材料耐磨"));
+        userRequirement.setRawDescription("预算18万，三室两厅，家里有夫妻、孩子和宠物，希望整体现代简约风，重点关注安全、收纳和日常清洁维护，避免尖角，重视防滑，并尽量选择耐磨材料。");
 
+        DecorationPlan result = service.execute(userRequirement);
+
+        System.out.println("========== Parallel Agent RAG Workflow Result ==========");
+        System.out.println("UserRequirement = " + userRequirement);
+        System.out.println("Summary = " + result.getSummary());
+        System.out.println("Conflicts = " + result.getConflicts());
+        System.out.println("PrimaryOption = " + result.getPrimaryOption());
+        System.out.println("AlternativeOptions = " + result.getAlternativeOptions());
+        System.out.println("DecisionReason = " + result.getDecisionReason());
+        System.out.println("========================================================");
     }
 }

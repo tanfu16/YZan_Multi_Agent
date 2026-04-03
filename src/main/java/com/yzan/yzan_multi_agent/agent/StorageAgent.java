@@ -2,39 +2,37 @@ package com.yzan.yzan_multi_agent.agent;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yzan.yzan_multi_agent.domain.AgentResult;
+import com.yzan.yzan_multi_agent.domain.KnowledgeChunk;
 import com.yzan.yzan_multi_agent.domain.StorageAnalysisResult;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
 import com.yzan.yzan_multi_agent.domain.enums.AgentExecutionStatus;
 import com.yzan.yzan_multi_agent.domain.enums.AgentType;
+import com.yzan.yzan_multi_agent.knowledge.KnowledgeRetrievalService;
 import dev.langchain4j.community.model.dashscope.QwenChatModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * 收纳规划顾问
- * 从收纳角度给方案建议
- * 流程：
- * 用户输入拼上 prompt 模板传给 LLM
- * LLM 返回回答
- * 用 Agent 对应的 Result 类封装回答的信息
- * 整合成统一的 AgentResult
- */
 @Component
 public class StorageAgent implements DecorationAgent {
 
     private final QwenChatModel qwenChatModel;
     private final ObjectMapper objectMapper;
+    private final KnowledgeRetrievalService knowledgeRetrievalService;
 
-    public StorageAgent(QwenChatModel qwenChatModel, ObjectMapper objectMapper) {
+    public StorageAgent(QwenChatModel qwenChatModel,
+                        ObjectMapper objectMapper,
+                        KnowledgeRetrievalService knowledgeRetrievalService) {
         this.qwenChatModel = qwenChatModel;
         this.objectMapper = objectMapper;
+        this.knowledgeRetrievalService = knowledgeRetrievalService;
     }
 
     @Override
     public AgentResult execute(StructuredRequirement requirement) {
         try {
-            String prompt = buildPrompt(requirement);
+            List<KnowledgeChunk> chunks = knowledgeRetrievalService.retrieveForStorage(requirement);
+            String prompt = buildPrompt(requirement, chunks);
             String response = qwenChatModel.chat(prompt);
             StorageAnalysisResult analysisResult = parseLlmResponse(response);
             return buildAgentResult(analysisResult);
@@ -43,11 +41,13 @@ public class StorageAgent implements DecorationAgent {
         }
     }
 
-    private String buildPrompt(StructuredRequirement requirement) {
+    private String buildPrompt(StructuredRequirement requirement, List<KnowledgeChunk> chunks) {
+        String knowledgeText = formatKnowledge(chunks);
+
         return """
                 你是一个家庭装修收纳规划顾问。
-                你的任务是根据用户的结构化装修需求，输出固定 JSON 格式的收纳分析结果。
-                
+                你的任务是根据用户的结构化装修需求，并优先参考系统检索到的收纳规划知识，输出固定 JSON 格式的收纳分析结果。
+
                 规则：
                 1. 只输出合法 JSON
                 2. 不要输出 markdown
@@ -56,18 +56,21 @@ public class StorageAgent implements DecorationAgent {
                    - recommendations
                    - risks
                    - summary
-                
+
                 字段要求：
                 - recommendations: 数组，给出 2 到 4 条收纳相关建议
                 - risks: 数组，给出 1 到 3 条收纳相关风险提示
                 - summary: 一句话总结整体收纳建议
-                
+
+                请优先参考以下检索到的收纳规划知识：
+                %s
+
                 请重点关注：
                 - 玄关、客厅、卧室等空间的柜体与储物能力
                 - 开放格与封闭柜体的平衡
                 - 收纳需求与空间通透感的关系
                 - 是否满足家庭长期整理和使用习惯
-                
+
                 用户结构化需求如下：
                 houseType: %s
                 area: %s
@@ -77,6 +80,7 @@ public class StorageAgent implements DecorationAgent {
                 priorities: %s
                 constraints: %s
                 """.formatted(
+                knowledgeText,
                 safe(requirement.getHouseType()),
                 safe(requirement.getArea()),
                 safe(requirement.getBudget()),
@@ -85,6 +89,22 @@ public class StorageAgent implements DecorationAgent {
                 safe(requirement.getPriorities()),
                 safe(requirement.getConstraints())
         );
+    }
+
+    private String formatKnowledge(List<KnowledgeChunk> chunks) {
+        if (chunks == null || chunks.isEmpty()) {
+            return "暂无可用知识片段。";
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (KnowledgeChunk chunk : chunks) {
+            builder.append("来源: ")
+                    .append(chunk.getSourceName())
+                    .append("\n")
+                    .append(chunk.getContent())
+                    .append("\n\n");
+        }
+        return builder.toString();
     }
 
     private StorageAnalysisResult parseLlmResponse(String response) throws Exception {

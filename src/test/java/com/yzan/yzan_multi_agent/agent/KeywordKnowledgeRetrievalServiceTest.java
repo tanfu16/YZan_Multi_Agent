@@ -1,6 +1,5 @@
 package com.yzan.yzan_multi_agent.agent;
 
-import com.yzan.yzan_multi_agent.domain.AgentResult;
 import com.yzan.yzan_multi_agent.domain.KnowledgeChunk;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
 import com.yzan.yzan_multi_agent.knowledge.KnowledgeRetrievalService;
@@ -12,16 +11,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @SpringBootTest
-class SafetyAgentTest {
-
-    @Autowired
-    private SafetyAgent safetyAgent;
+class KeywordKnowledgeRetrievalServiceTest {
 
     @Autowired
     private KnowledgeRetrievalService knowledgeRetrievalService;
 
     @Test
-    void shouldPrintSafetyAgentRagResult() {
+    void shouldPrintRetrievedSafetyKnowledge() {
         StructuredRequirement requirement = new StructuredRequirement();
         requirement.setHouseType("三室两厅");
         requirement.setArea(118);
@@ -35,6 +31,7 @@ class SafetyAgentTest {
 
         System.out.println("========== Retrieved Knowledge Chunks ==========");
         System.out.println("Retrieved count = " + chunks.size());
+
         for (int i = 0; i < chunks.size(); i++) {
             KnowledgeChunk chunk = chunks.get(i);
             System.out.println("Chunk " + (i + 1));
@@ -43,15 +40,5 @@ class SafetyAgentTest {
             System.out.println(chunk.getContent());
             System.out.println("----------------------------------------------");
         }
-
-        AgentResult result = safetyAgent.execute(requirement);
-
-        System.out.println("========== SafetyAgent RAG Result ==========");
-        System.out.println("AgentType = " + result.getAgentType());
-        System.out.println("Status = " + result.getAgentExecutionStatus());
-        System.out.println("Recommendations = " + result.getRecommendations());
-        System.out.println("Risks = " + result.getRisks());
-        System.out.println("Summary = " + result.getSummary());
-        System.out.println("============================================");
     }
 }

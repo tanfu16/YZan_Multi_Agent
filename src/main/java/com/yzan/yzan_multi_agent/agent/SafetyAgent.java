@@ -2,10 +2,12 @@ package com.yzan.yzan_multi_agent.agent;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yzan.yzan_multi_agent.domain.AgentResult;
+import com.yzan.yzan_multi_agent.domain.KnowledgeChunk;
 import com.yzan.yzan_multi_agent.domain.SafetyAnalysisResult;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
 import com.yzan.yzan_multi_agent.domain.enums.AgentExecutionStatus;
 import com.yzan.yzan_multi_agent.domain.enums.AgentType;
+import com.yzan.yzan_multi_agent.knowledge.KnowledgeRetrievalService;
 import dev.langchain4j.community.model.dashscope.QwenChatModel;
 import org.springframework.stereotype.Component;
 
@@ -25,16 +27,20 @@ public class SafetyAgent implements DecorationAgent{
 
     private final QwenChatModel qwenChatModel;
     private final ObjectMapper objectMapper;
+    private final KnowledgeRetrievalService knowledgeRetrievalService;
 
-    public SafetyAgent(QwenChatModel qwenChatModel, ObjectMapper objectMapper) {
+    public SafetyAgent(QwenChatModel qwenChatModel, ObjectMapper objectMapper, KnowledgeRetrievalService knowledgeRetrievalService) {
         this.qwenChatModel = qwenChatModel;
         this.objectMapper = objectMapper;
+        this.knowledgeRetrievalService = knowledgeRetrievalService;
     }
+
 
     @Override
     public AgentResult execute(StructuredRequirement requirement) {
         try {
-            String prompt = buildPrompt(requirement);
+            List<KnowledgeChunk> chunks = knowledgeRetrievalService.retrieveForSafety(requirement);
+            String prompt = buildPrompt(requirement, chunks);
             String response = qwenChatModel.chat(prompt);
             SafetyAnalysisResult analysisResult = parseLlmResponse(response);
             return buildAgentResult(analysisResult);
@@ -43,40 +49,47 @@ public class SafetyAgent implements DecorationAgent{
         }
     }
 
-    private String buildPrompt(StructuredRequirement requirement) {
+    private String buildPrompt(StructuredRequirement requirement, List<KnowledgeChunk> chunks) {
+        String knowledgeText = formatKnowledge(chunks);
+
         return """
-                你是一个家庭装修安全顾问。
-                你的任务是根据用户的结构化装修需求，输出固定 JSON 格式的安全分析结果。
-                
-                规则：
-                1. 只输出合法 JSON
-                2. 不要输出 markdown
-                3. 不要输出解释说明
-                4. JSON 字段固定为：
-                   - recommendations
-                   - risks
-                   - summary
-                
-                字段要求：
-                - recommendations: 数组，给出 2 到 4 条安全相关建议
-                - risks: 数组，给出 1 到 3 条安全相关风险提示
-                - summary: 一句话总结整体安全建议
-                
-                请重点关注：
-                - 儿童、老人、宠物等家庭成员适配
-                - 家具尖角、地面防滑、材料耐脏耐磨
-                - 日常使用安全与清洁维护
-                - 是否存在潜在碰撞、滑倒、损坏风险
-                
-                用户结构化需求如下：
-                houseType: %s
-                area: %s
-                budget: %s
-                familyProfile: %s
-                stylePreference: %s
-                priorities: %s
-                constraints: %s
-                """.formatted(
+            你是一个家庭装修安全顾问。
+            你的任务是根据用户的结构化装修需求，并优先参考系统检索到的装修安全知识，
+            输出固定 JSON 格式的安全分析结果。
+
+            规则：
+            1. 只输出合法 JSON
+            2. 不要输出 markdown
+            3. 不要输出解释说明
+            4. JSON 字段固定为：
+               - recommendations
+               - risks
+               - summary
+
+            字段要求：
+            - recommendations: 数组，给出 2 到 4 条安全相关建议
+            - risks: 数组，给出 1 到 3 条安全相关风险提示
+            - summary: 一句话总结整体安全建议
+
+            请优先参考以下检索到的装修安全知识：
+            %s
+
+            请重点关注：
+            - 儿童、老人、宠物等家庭成员适配
+            - 家具尖角、地面防滑、材料耐磨耐脏
+            - 日常使用安全与清洁维护
+            - 是否存在潜在碰撞、滑倒、损坏风险
+
+            用户结构化需求如下：
+            houseType: %s
+            area: %s
+            budget: %s
+            familyProfile: %s
+            stylePreference: %s
+            priorities: %s
+            constraints: %s
+            """.formatted(
+                knowledgeText,
                 safe(requirement.getHouseType()),
                 safe(requirement.getArea()),
                 safe(requirement.getBudget()),
@@ -85,6 +98,24 @@ public class SafetyAgent implements DecorationAgent{
                 safe(requirement.getPriorities()),
                 safe(requirement.getConstraints())
         );
+    }
+
+
+    // RAG 检索
+    private String formatKnowledge(List<KnowledgeChunk> chunks) {
+        if (chunks == null || chunks.isEmpty()) {
+            return "暂无可用知识片段。";
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (KnowledgeChunk chunk : chunks) {
+            builder.append("来源: ")
+                    .append(chunk.getSourceName())
+                    .append("\n")
+                    .append(chunk.getContent())
+                    .append("\n\n");
+        }
+        return builder.toString();
     }
 
     private SafetyAnalysisResult parseLlmResponse(String response) throws Exception {

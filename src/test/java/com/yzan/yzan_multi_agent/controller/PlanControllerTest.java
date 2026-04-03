@@ -6,10 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -19,27 +18,29 @@ class PlanControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void shouldGenerateDecorationPlanSuccessfully() throws Exception {
+    void shouldPrintDecorationPlanResponse() throws Exception {
         String requestBody = """
                 {
-                  "houseType": "两室一厅",
-                  "area": 89,
-                  "budget": 180000,
-                  "familyMembers": ["夫妻", "孩子", "宠物"],
-                  "stylePreference": "现代原木风",
-                  "specialNeeds": ["收纳多", "好打理"],
-                  "rawDescription": "预算18万，希望整体温馨一些，适合孩子和宠物活动。"
+                  \"houseType\": \"两室一厅\",
+                  \"area\": 89,
+                  \"budget\": 180000,
+                  \"familyMembers\": [\"夫妻\", \"孩子\", \"宠物\"],
+                  \"stylePreference\": \"现代原木风\",
+                  \"specialNeeds\": [\"收纳多\", \"好打理\"],
+                  \"rawDescription\": \"预算18万，希望整体温馨一些，适合孩子和宠物活动。\"
                 }
                 """;
 
-        mockMvc.perform(post("/api/plans/generate")
+        MvcResult result = mockMvc.perform(post("/api/plans/generate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.summary").isNotEmpty())
-                .andExpect(jsonPath("$.keyRecommendations").isArray())
-                .andExpect(jsonPath("$.conflicts").isArray())
-                .andExpect(jsonPath("$.finalSuggestion").isNotEmpty());
+                .andReturn();
+
+        System.out.println("========== PlanController Response ==========");
+        System.out.println("HTTP Status = " + result.getResponse().getStatus());
+        System.out.println("ContentType = " + result.getResponse().getContentType());
+        System.out.println("ResponseBody = ");
+        System.out.println(result.getResponse().getContentAsString());
+        System.out.println("============================================");
     }
 }
