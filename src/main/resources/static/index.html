@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YZan Multi-Agent 对话式装修助手</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=chat-ui-20260404d">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand-card">
+            <p class="eyebrow">Multi-Agent / RAG / MCP</p>
+            <h1>装修对话台</h1>
+            <p>用一句自然语言描述你的装修需求，或者直接让系统帮你搜附近建材门店、抓京东家具候选。</p>
+        </div>
+
+        <section class="side-card">
+            <h2>你可以这样说</h2>
+            <button class="preset-chip" data-preset="我家 118 平三室两厅，预算 18 万，夫妻加一个孩子和一只狗，想做现代简约风，希望更安全、耐脏、好打理，也要有收纳。">
+                生成装修方案
+            </button>
+            <button class="preset-chip" data-preset="帮我看看上海宝山区哪里能买瓷砖，最好给我最近三个店。">
+                查线下建材门店
+            </button>
+            <button class="preset-chip" data-preset="帮我在京东搜几款现代简约沙发，给我几个候选商品。">
+                查线上家具商品
+            </button>
+        </section>
+
+    </aside>
+
+    <main class="chat-shell">
+        <header class="chat-header">
+            <div>
+                <p class="eyebrow">Conversation</p>
+                <h2>对话式装修助手</h2>
+            </div>
+        </header>
+
+        <section id="chat-timeline" class="chat-timeline">
+            <article class="message assistant">
+                <div class="avatar">AI</div>
+                <div class="bubble">
+                    <p class="message-label">系统提示</p>
+                    <p>直接输入一句话就可以开始。我会根据内容决定是走装修方案生成，还是走 skill + MCP 外部能力。</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="composer">
+            <label class="composer-label" for="chat-input">输入你的请求</label>
+            <div class="composer-row">
+                <textarea id="chat-input" rows="4" placeholder="例如：我家 89 平两室一厅，预算 8 万，夫妻加宠物，想做现代原木风，想更好收纳，也希望材料耐脏。"></textarea>
+                <button id="send-btn" class="primary-btn composer-send-btn" type="button">发送</button>
+            </div>
+            <div class="composer-meta">
+                <span>回车发送，Shift + Enter 换行。支持方案生成、建材门店搜索、家具商品搜索。</span>
+                <button id="clear-btn" class="ghost-btn small-btn" type="button">清空对话</button>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/app.js?v=chat-ui-20260404d"></script>
+</body>
+</html>

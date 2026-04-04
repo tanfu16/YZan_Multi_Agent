@@ -20,14 +20,14 @@ public class VectorKnowledgeRetrievalService implements KnowledgeRetrievalServic
 
     private final QwenEmbeddingModel qwenEmbeddingModel;
     private final EmbeddingStore<TextSegment> embeddingStore;
-    private final KnowledgeLoader knowledgeLoader;
+    private final PersistedKnowledgeChunkService persistedKnowledgeChunkService;
 
     public VectorKnowledgeRetrievalService(QwenEmbeddingModel qwenEmbeddingModel,
                                            EmbeddingStore<TextSegment> embeddingStore,
-                                           KnowledgeLoader knowledgeLoader) {
+                                           PersistedKnowledgeChunkService persistedKnowledgeChunkService) {
         this.qwenEmbeddingModel = qwenEmbeddingModel;
         this.embeddingStore = embeddingStore;
-        this.knowledgeLoader = knowledgeLoader;
+        this.persistedKnowledgeChunkService = persistedKnowledgeChunkService;
     }
 
     @Override
@@ -121,11 +121,7 @@ public class VectorKnowledgeRetrievalService implements KnowledgeRetrievalServic
     }
 
     private String resolveSourceName(String content) {
-        return knowledgeLoader.loadAllChunks().stream()
-                .filter(chunk -> chunk.getContent().equals(content))
-                .map(KnowledgeChunk::getSourceName)
-                .findFirst()
-                .orElse("vector-store");
+        return persistedKnowledgeChunkService.resolveSourceName(content);
     }
 
     private String safe(Object value) {

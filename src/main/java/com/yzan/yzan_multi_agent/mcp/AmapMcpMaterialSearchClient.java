@@ -34,12 +34,22 @@ public class AmapMcpMaterialSearchClient implements MaterialSearchClient {
 
     @Override
     public List<MaterialStoreRecommendation> searchNearestStores(String location, String materialKeyword) {
+        String city = extractPrimaryCity(location);
+        String mergedKeyword = mergeKeywordWithLocation(location, materialKeyword, city);
+
+        System.out.println("========== AMap MCP Search Request ==========");
+        System.out.println("Original location = " + location);
+        System.out.println("Original keyword = " + materialKeyword);
+        System.out.println("Resolved city = " + city);
+        System.out.println("Merged keyword = " + mergedKeyword);
+        System.out.println("=============================================");
+
         McpSchema.CallToolResult result = amapMcpClient.callTool(
                 new McpSchema.CallToolRequest(
                         "maps_text_search",
                         Map.of(
-                                "keywords", materialKeyword,
-                                "city", location,
+                                "keywords", mergedKeyword,
+                                "city", city,
                                 "offset", 3,
                                 "page", 1
                         )
@@ -67,6 +77,52 @@ public class AmapMcpMaterialSearchClient implements MaterialSearchClient {
         }
 
         return recommendations.stream().limit(3).toList();
+    }
+
+    private String extractPrimaryCity(String location) {
+        if (location == null || location.isBlank()) {
+            return "";
+        }
+
+        String normalized = location.trim();
+        String[] municipalities = {"上海", "北京", "天津", "重庆"};
+        for (String municipality : municipalities) {
+            if (normalized.startsWith(municipality)) {
+                return municipality;
+            }
+        }
+
+        int cityIndex = normalized.indexOf('市');
+        if (cityIndex > 0) {
+            return normalized.substring(0, cityIndex);
+        }
+
+        return normalized;
+    }
+
+    private String mergeKeywordWithLocation(String location, String materialKeyword, String city) {
+        String normalizedLocation = location == null ? "" : location.trim();
+        String normalizedKeyword = materialKeyword == null ? "" : materialKeyword.trim();
+        String normalizedCity = city == null ? "" : city.trim();
+
+        if (normalizedLocation.isBlank()) {
+            return normalizedKeyword;
+        }
+
+        String areaPart = normalizedLocation;
+        if (!normalizedCity.isBlank() && normalizedLocation.startsWith(normalizedCity)) {
+            areaPart = normalizedLocation.substring(normalizedCity.length()).trim();
+        }
+
+        if (areaPart.isBlank()) {
+            return normalizedKeyword;
+        }
+
+        if (normalizedKeyword.contains(areaPart)) {
+            return normalizedKeyword;
+        }
+
+        return (areaPart + " " + normalizedKeyword).trim();
     }
 
     private List<MaterialStoreRecommendation> parseStructuredContent(Object structuredContent, String materialKeyword) {

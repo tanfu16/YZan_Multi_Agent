@@ -78,83 +78,141 @@ public class PlaywrightMcpFurnitureSearchClient implements FurnitureSearchClient
                   await page.waitForLoadState('domcontentloaded');
                   await page.waitForTimeout(3000);
 
-                  const itemSelectors = [
-                    '.gl-item',
-                    '.j-sku-item',
-                    '[data-sku]',
-                    '.search_prolist_item',
-                    '.goods-list-v2 .goods-item',
-                    '.s-item'
-                  ];
+                  return await page.evaluate(() => {
+                    const itemSelectors = [
+                      '.gl-item',
+                      '.j-sku-item',
+                      '[data-sku]',
+                      '.search_prolist_item',
+                      '.goods-list-v2 .goods-item',
+                      '.s-item'
+                    ];
 
-                  const titleSelectors = [
-                    '.p-name em',
-                    '.p-name a em',
-                    '.p-name-type-2 em',
-                    '.sku-name',
-                    '.title',
-                    'a[title]',
-                    '.p-name a'
-                  ];
+                    const titleSelectors = [
+                      '.p-name em',
+                      '.p-name a em',
+                      '.p-name-type-2 em',
+                      '.sku-name',
+                      '.title',
+                      'a[title]',
+                      '.p-name a'
+                    ];
 
-                  const priceSelectors = [
-                    '.p-price i',
-                    '.p-price strong i',
-                    '.price i',
-                    '.price',
-                    '[class*=price] i',
-                    '[class*=price]'
-                  ];
+                    const priceSelectors = [
+                      '.p-price i',
+                      '.p-price strong i',
+                      '.price i',
+                      '.price',
+                      '[class*=price] i',
+                      '[class*=price]'
+                    ];
 
-                  const shopSelectors = [
-                    '.curr-shop',
-                    '.p-shop a',
-                    '.p-shopnum a',
-                    '[class*=shop] a',
-                    '.store-name',
-                    '.shop-name'
-                  ];
+                    const shopSelectors = [
+                      '.curr-shop',
+                      '.p-shop a',
+                      '.p-shopnum a',
+                      '[class*=shop] a',
+                      '.store-name',
+                      '.shop-name'
+                    ];
 
-                  const linkSelectors = [
-                    '.p-name a',
-                    'a[href*="item.jd.com"]',
-                    'a[href*="jd.com"]',
-                    '.sku-name'
-                  ];
+                    const normalizeText = (text) => (text || '').replace(/\\s+/g, ' ').trim();
 
-                  const pickText = (root, selectors) => {
-                    for (const selector of selectors) {
-                      const node = root.querySelector(selector);
-                      const text = node?.textContent?.replace(/\\s+/g, ' ').trim();
-                      if (text) return text;
+                    const pickText = (root, selectors) => {
+                      for (const selector of selectors) {
+                        const node = root.querySelector(selector);
+                        const text = normalizeText(node?.textContent);
+                        if (text) {
+                          return text;
+                        }
+                      }
+                      return '';
+                    };
+
+                    const normalizeLink = (href) => {
+                      if (!href) {
+                        return '';
+                      }
+                      if (href.startsWith('//')) {
+                        return 'https:' + href;
+                      }
+                      if (href.startsWith('/')) {
+                        return window.location.origin + href;
+                      }
+                      return href;
+                    };
+
+                    const parsePriceFromText = (text) => {
+                      const normalized = normalizeText(text);
+                      const match = normalized.match(/\\b(\\d{2,6}(?:\\.\\d{1,2})?)\\b/);
+                      return match ? match[1] : '';
+                    };
+
+                    const parseShopFromText = (text) => {
+                      const normalized = normalizeText(text);
+                      const segments = normalized.split(/\\s+/);
+                      return segments.find(segment =>
+                        segment.includes('店') ||
+                        segment.includes('旗舰') ||
+                        segment.includes('自营') ||
+                        segment.includes('经营部')
+                      ) || '';
+                    };
+
+                    const linkCandidates = Array.from(
+                      document.querySelectorAll('a[href*="item.jd.com"], a[href*="//item.jd.com/"]')
+                    ).map(link => {
+                      const container = link.closest('[data-sku], .gl-item, .j-sku-item, li, div') || link.parentElement || link;
+                      const title = normalizeText(link.getAttribute('title')) || normalizeText(link.textContent) || pickText(container, titleSelectors);
+                      const price = pickText(container, priceSelectors) || parsePriceFromText(container.textContent);
+                      const shopName = pickText(container, shopSelectors) || parseShopFromText(container.textContent);
+                      const href = normalizeLink(link.href || link.getAttribute('href'));
+
+                      return {
+                        title,
+                        price,
+                        shopName,
+                        link: href
+                      };
+                    });
+
+                    const deduplicatedByLink = [];
+                    const seenLinks = new Set();
+                    for (const item of linkCandidates) {
+                      if (!item.title || !item.link) {
+                        continue;
+                      }
+                      if (seenLinks.has(item.link)) {
+                        continue;
+                      }
+                      seenLinks.add(item.link);
+                      deduplicatedByLink.push(item);
                     }
-                    return '';
-                  };
 
-                  const pickLink = (root, selectors) => {
-                    for (const selector of selectors) {
-                      const node = root.querySelector(selector);
-                      const href = node?.href || node?.getAttribute?.('href') || '';
-                      if (href) return href;
+                    if (deduplicatedByLink.length > 0) {
+                      return deduplicatedByLink.slice(0, 3);
                     }
-                    return '';
-                  };
 
-                  let items = [];
-                  for (const selector of itemSelectors) {
-                    const found = Array.from(document.querySelectorAll(selector));
-                    if (found.length > 0) {
-                      items = found;
-                      break;
+                    let items = [];
+                    for (const selector of itemSelectors) {
+                      const found = Array.from(document.querySelectorAll(selector));
+                      if (found.length > 0) {
+                        items = found;
+                        break;
+                      }
                     }
-                  }
 
-                  return items.slice(0, 10).map(item => ({
-                    title: pickText(item, titleSelectors),
-                    price: pickText(item, priceSelectors),
-                    shopName: pickText(item, shopSelectors),
-                    link: pickLink(item, linkSelectors)
-                  })).filter(item => item.title).slice(0, 3);
+                    return items
+                      .slice(0, 10)
+                      .map(item => ({
+                        title: pickText(item, titleSelectors) || normalizeText(item.textContent).slice(0, 80),
+                        price: pickText(item, priceSelectors) || parsePriceFromText(item.textContent),
+                        shopName: pickText(item, shopSelectors) || parseShopFromText(item.textContent),
+                        link: normalizeLink(item.querySelector('a[href]')?.href || item.querySelector('a[href]')?.getAttribute('href'))
+                      }))
+                      .filter(item => item.title && item.link)
+                      .slice(0, 3);
+                  });
                 }
                 """;
 
@@ -188,7 +246,7 @@ public class PlaywrightMcpFurnitureSearchClient implements FurnitureSearchClient
             return false;
         }
         String normalized = platform.trim().toLowerCase();
-        return "jd".equals(normalized) || "jingdong".equals(normalized) || "??".equals(platform.trim());
+        return "jd".equals(normalized) || "jingdong".equals(normalized) || "京东".equals(platform.trim());
     }
 
     private String normalizeKeyword(String keyword) {

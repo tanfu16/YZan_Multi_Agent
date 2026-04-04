@@ -1,7 +1,6 @@
 package com.yzan.yzan_multi_agent.knowledge;
 
-import com.yzan.yzan_multi_agent.domain.KnowledgeChunk;
-import dev.langchain4j.community.model.dashscope.QwenEmbeddingModel;
+import com.yzan.yzan_multi_agent.persistence.record.KnowledgeChunkRecord;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.EmbeddingStore;
@@ -13,33 +12,30 @@ import java.util.List;
 @Component
 public class KnowledgeEmbeddingIndexer {
 
-    private final KnowledgeLoader knowledgeLoader;
-    private final QwenEmbeddingModel qwenEmbeddingModel;
+    private final PersistedKnowledgeChunkService persistedKnowledgeChunkService;
     private final EmbeddingStore<TextSegment> embeddingStore;
 
-    public KnowledgeEmbeddingIndexer(KnowledgeLoader knowledgeLoader,
-                                     QwenEmbeddingModel qwenEmbeddingModel,
+    public KnowledgeEmbeddingIndexer(PersistedKnowledgeChunkService persistedKnowledgeChunkService,
                                      EmbeddingStore<TextSegment> embeddingStore) {
-        this.knowledgeLoader = knowledgeLoader;
-        this.qwenEmbeddingModel = qwenEmbeddingModel;
+        this.persistedKnowledgeChunkService = persistedKnowledgeChunkService;
         this.embeddingStore = embeddingStore;
     }
 
     @PostConstruct
     public void indexKnowledge() {
-        List<KnowledgeChunk> chunks = knowledgeLoader.loadAllChunks();
-        System.out.println("Knowledge chunks to index = " + chunks.size());
+        persistedKnowledgeChunkService.ensureInitialized();
+        List<KnowledgeChunkRecord> records = persistedKnowledgeChunkService.loadAllRecords();
+        System.out.println("Knowledge chunks loaded from database = " + records.size());
 
-        for (KnowledgeChunk chunk : chunks) {
+        for (KnowledgeChunkRecord record : records) {
             try {
-                TextSegment segment = TextSegment.from(chunk.getContent());
-                Embedding embedding = qwenEmbeddingModel.embed(segment.text()).content();
+                TextSegment segment = TextSegment.from(record.getContent());
+                Embedding embedding = persistedKnowledgeChunkService.parseEmbedding(record);
                 embeddingStore.add(embedding, segment);
-
-                System.out.println("Indexed chunk from source = " + chunk.getSourceName());
+                System.out.println("Indexed chunk from source = " + record.getSourceName());
             } catch (Exception e) {
                 System.out.println("Failed to index chunk from source = "
-                        + chunk.getSourceName() + ", error = " + e.getMessage());
+                        + record.getSourceName() + ", error = " + e.getMessage());
             }
         }
 

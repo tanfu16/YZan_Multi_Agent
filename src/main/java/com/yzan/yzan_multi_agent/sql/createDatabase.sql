@@ -46,3 +46,32 @@ CREATE TABLE plan_record (
 CREATE INDEX idx_plan_record_request_id ON plan_record(request_id);
 CREATE INDEX idx_plan_record_session_id ON plan_record(session_id);
 CREATE INDEX idx_plan_record_parent_request_id ON plan_record(parent_request_id);
+
+CREATE TABLE knowledge_chunk_record (
+                                        id BIGSERIAL PRIMARY KEY,
+                                        source_name VARCHAR(255) NOT NULL,
+                                        content TEXT NOT NULL,
+                                        content_hash VARCHAR(64) NOT NULL,
+                                        embedding_json TEXT NOT NULL,
+                                        created_at TIMESTAMP NOT NULL,
+                                        updated_at TIMESTAMP
+);
+
+CREATE UNIQUE INDEX uk_knowledge_chunk_record_content_hash ON knowledge_chunk_record(content_hash);
+CREATE INDEX idx_knowledge_chunk_record_source_name ON knowledge_chunk_record(source_name);
+
+CREATE TABLE IF NOT EXISTS knowledge_chunk_record (
+                                                      id BIGSERIAL PRIMARY KEY,
+                                                      source_name VARCHAR(255) NOT NULL,
+                                                      content TEXT NOT NULL,
+                                                      content_hash VARCHAR(64) NOT NULL,
+                                                      embedding_json TEXT NOT NULL,
+                                                      created_at TIMESTAMP NOT NULL,
+                                                      updated_at TIMESTAMP
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uk_knowledge_chunk_record_content_hash
+    ON knowledge_chunk_record(content_hash);
+
+CREATE INDEX IF NOT EXISTS idx_knowledge_chunk_record_source_name
+    ON knowledge_chunk_record(source_name);
