@@ -67,6 +67,7 @@ async function handleSkillRequest() {
 
 function buildPlanPayload(text) {
     return {
+        sessionId: getOrCreateSessionId(),
         rawDescription: text,
         familyMembers: inferFamilyMembers(text),
         specialNeeds: inferSpecialNeeds(text),
@@ -362,6 +363,7 @@ async function withButtonsDisabled(statusText, action) {
 }
 
 function clearConversation() {
+    resetSessionId();
     timeline.innerHTML = `
         <article class="message assistant">
             <div class="avatar">AI</div>
@@ -393,3 +395,19 @@ function escapeHtml(value) {
         .replaceAll("\"", "&quot;")
         .replaceAll("'", "&#39;");
 }
+
+
+function getOrCreateSessionId() {
+    const key = 'yzan-chat-session-id';
+    let sessionId = window.localStorage.getItem(key);
+    if (!sessionId) {
+        sessionId = (window.crypto?.randomUUID?.() || "session-" + Date.now());
+        window.localStorage.setItem(key, sessionId);
+    }
+    return sessionId;
+}
+
+function resetSessionId() {
+    window.localStorage.removeItem('yzan-chat-session-id');
+}
+

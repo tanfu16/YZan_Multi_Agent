@@ -5,36 +5,44 @@ import com.yzan.yzan_multi_agent.domain.RequirementExtractionResult;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
 import com.yzan.yzan_multi_agent.domain.UserRequirement;
 import dev.langchain4j.community.model.dashscope.QwenChatModel;
+import dev.langchain4j.memory.chat.ChatMemoryProvider;
+import dev.langchain4j.service.AiServices;
+import dev.langchain4j.service.MemoryId;
+import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 需求整理员
- * 把用户原始需求整理成结构化需求
- * 流程：
- * 用户输入拼上 prompt 模板传给 LLM
- * LLM 返回回答
- * 用 Agent 对应的 Result 类封装回答的信息
- * 整合成标准化输入
+ * 把用户原始需求整理成结构化需求。
+ * 这里通过 LangChain4j 的 @MemoryId + ChatMemoryProvider
+ * 在同一 session 内自动携带历史上下文。
  */
 @Component
 public class RequirementAgent {
 
-    private final QwenChatModel qwenChatModel;
     private final ObjectMapper objectMapper;
+    private final RequirementMemoryAssistant requirementMemoryAssistant;
 
-    public RequirementAgent(QwenChatModel qwenChatModel, ObjectMapper objectMapper){
-        this.qwenChatModel = qwenChatModel;
+    public RequirementAgent(QwenChatModel qwenChatModel,
+                            ObjectMapper objectMapper,
+                            ChatMemoryProvider chatMemoryProvider) {
         this.objectMapper = objectMapper;
+        this.requirementMemoryAssistant = AiServices.builder(RequirementMemoryAssistant.class)
+                .chatModel(qwenChatModel)
+                .chatMemoryProvider(chatMemoryProvider)
+                .build();
     }
 
-    // LLM 将用户的原始输入解析成标准化输入
     public StructuredRequirement execute(UserRequirement userRequirement) {
         try {
+            String memoryId = resolveMemoryId(userRequirement);
             String prompt = buildPrompt(userRequirement);
-            String response = qwenChatModel.chat(prompt);
+            String response = requirementMemoryAssistant.extract(memoryId, prompt);
             RequirementExtractionResult extractionResult = parseLlmResponse(response);
             return buildStructuredRequirement(userRequirement, extractionResult);
         } catch (Exception e) {
@@ -44,30 +52,37 @@ public class RequirementAgent {
         }
     }
 
+    private String resolveMemoryId(UserRequirement userRequirement) {
+        if (userRequirement != null && userRequirement.getSessionId() != null && !userRequirement.getSessionId().isBlank()) {
+            return userRequirement.getSessionId().trim();
+        }
+        String sessionId = UUID.randomUUID().toString();
+        if (userRequirement != null) {
+            userRequirement.setSessionId(sessionId);
+        }
+        return sessionId;
+    }
 
-    // 构建prompt
     private String buildPrompt(UserRequirement userRequirement) {
         return """
-                你是一个装修需求结构化助手。
-                你的任务是根据用户输入，提取并整理出固定 JSON。
-                
-                规则：
-                1. 只输出合法 JSON
-                2. 不要输出 markdown
-                3. 不要输出解释说明
-                4. JSON 字段固定为：
-                   - familyProfile
-                   - stylePreference
-                   - priorities
-                   - constraints
-                
+                请基于当前输入以及同一会话中的历史上下文，提取并整理出结构化装修需求。
+                如果本轮输入出现“继续上一轮”“还是原来的风格”“预算改一下”之类表达，请结合历史上下文补全缺失信息。
+
+                只输出合法 JSON，不要输出 markdown，不要输出解释。
+
+                JSON 字段固定为：
+                - familyProfile
+                - stylePreference
+                - priorities
+                - constraints
+
                 字段要求：
                 - familyProfile: 用简洁中文概括家庭结构
                 - stylePreference: 提炼用户风格偏好
                 - priorities: 输出数组，表示核心优先级
                 - constraints: 输出数组，表示约束条件
-                
-                用户输入如下：
+
+                当前用户输入如下：
                 houseType: %s
                 area: %s
                 budget: %s
@@ -86,19 +101,14 @@ public class RequirementAgent {
         );
     }
 
-    // 判断是否为空
     private String safe(Object value) {
         return value == null ? "" : String.valueOf(value);
     }
 
-
-    // 模型返回的结果解析成 JSON 对象
     private RequirementExtractionResult parseLlmResponse(String response) throws Exception {
         return objectMapper.readValue(response, RequirementExtractionResult.class);
     }
 
-
-    // 从特殊需求和原始描述中提取约束条件
     private List<String> buildConstraints(UserRequirement userRequirement) {
         List<String> constraints = new ArrayList<>();
 
@@ -129,20 +139,14 @@ public class RequirementAgent {
         return constraints;
     }
 
-
-    // 用户原始输入和模型返回结果合并成标准化输入
     private StructuredRequirement buildStructuredRequirement(
             UserRequirement userRequirement,
             RequirementExtractionResult extractionResult
     ) {
         StructuredRequirement requirement = new StructuredRequirement();
-
-        // 这些字段本身已经结构化，直接透传
         requirement.setHouseType(userRequirement.getHouseType());
         requirement.setArea(userRequirement.getArea());
         requirement.setBudget(userRequirement.getBudget());
-
-        // 这些字段由模型提取
         requirement.setFamilyProfile(extractionResult.getFamilyProfile());
         requirement.setStylePreference(
                 extractionResult.getStylePreference() != null
@@ -159,30 +163,21 @@ public class RequirementAgent {
                         ? extractionResult.getConstraints()
                         : List.of()
         );
-
         return requirement;
     }
 
-
-    // 模型失效策略
     private StructuredRequirement fallbackToRuleBased(UserRequirement userRequirement) {
         StructuredRequirement requirement = new StructuredRequirement();
-
         requirement.setHouseType(userRequirement.getHouseType());
         requirement.setArea(userRequirement.getArea());
         requirement.setBudget(userRequirement.getBudget());
         requirement.setStylePreference(userRequirement.getStylePreference());
-
         requirement.setFamilyProfile(buildFamilyProfile(userRequirement.getFamilyMembers()));
         requirement.setPriorities(buildPriorities(userRequirement));
         requirement.setConstraints(buildConstraints(userRequirement));
-
         return requirement;
     }
 
-
-
-    // 模型失效情况下的家庭列表构建
     private String buildFamilyProfile(List<String> familyMembers) {
         if (familyMembers == null || familyMembers.isEmpty()) {
             return "未知家庭结构";
@@ -190,8 +185,6 @@ public class RequirementAgent {
         return String.join("+", familyMembers);
     }
 
-
-    // 模型失效情况下的优先级提取
     private List<String> buildPriorities(UserRequirement userRequirement) {
         List<String> priorities = new ArrayList<>();
 
@@ -218,7 +211,10 @@ public class RequirementAgent {
 
         return priorities;
     }
+
+    interface RequirementMemoryAssistant {
+
+        @SystemMessage("你是一个装修需求结构化助手。你的任务是根据当前用户输入和同一会话中的历史上下文，输出固定 JSON。不要输出 markdown，不要输出解释，不要输出 JSON 以外的内容。")
+        String extract(@MemoryId String memoryId, @UserMessage String prompt);
+    }
 }
-
-
-

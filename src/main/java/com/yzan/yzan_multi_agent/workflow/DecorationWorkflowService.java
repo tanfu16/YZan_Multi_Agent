@@ -67,13 +67,13 @@ public class DecorationWorkflowService {
 
     public DecorationPlan execute(UserRequirement userRequirement){
         String requestId = UUID.randomUUID().toString();
-        String sessionId = UUID.randomUUID().toString();
+        String sessionId = (userRequirement.getSessionId() != null && !userRequirement.getSessionId().isBlank()) ? userRequirement.getSessionId().trim() : UUID.randomUUID().toString();
         String parentRequestId = null;
         String userId = null;
 
         StructuredRequirement structuredRequirement = requirementAgent.execute(userRequirement);
 
-        // 构造 requirementRecord
+        // 鏋勯€?requirementRecord
         RequirementRecord requirementRecord = buildRequirementRecord(
                 requestId,
                 sessionId,
@@ -82,32 +82,32 @@ public class DecorationWorkflowService {
                 userRequirement,
                 structuredRequirement
         );
-        // requirementRecord 入库
+        // requirementRecord 鍏ュ簱
         requirementRecordMapper.insert(requirementRecord);
         System.out.println("RequirementRecord saved, id = " + requirementRecord.getId());
 
-        // 四个并行 Agent 异步启动，不互相等待
+        // 鍥涗釜骞惰 Agent 寮傛鍚姩锛屼笉浜掔浉绛夊緟
         CompletableFuture<AgentResult> layoutFuture =
                 CompletableFuture.supplyAsync(() -> layoutAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.LAYOUT, "布局分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.LAYOUT, "布局分析失败，已返回降级结果"));
+                        .completeOnTimeout(buildTimeoutResult(AgentType.LAYOUT, "甯冨眬鍒嗘瀽瓒呮椂锛屽凡闄嶇骇"), 3, TimeUnit.MINUTES)
+                        .exceptionally(ex -> buildFailedResult(AgentType.LAYOUT, "甯冨眬鍒嗘瀽澶辫触锛屽凡杩斿洖闄嶇骇缁撴灉"));
         CompletableFuture<AgentResult> budgetFuture =
                 CompletableFuture.supplyAsync(() -> budgetAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.BUDGET, "预算分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.BUDGET, "预算分析失败，已返回降级结果"));
+                        .completeOnTimeout(buildTimeoutResult(AgentType.BUDGET, "棰勭畻鍒嗘瀽瓒呮椂锛屽凡闄嶇骇"), 3, TimeUnit.MINUTES)
+                        .exceptionally(ex -> buildFailedResult(AgentType.BUDGET, "棰勭畻鍒嗘瀽澶辫触锛屽凡杩斿洖闄嶇骇缁撴灉"));
         CompletableFuture<AgentResult> safetyFuture =
                 CompletableFuture.supplyAsync(() -> safetyAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.SAFETY, "安全分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.SAFETY, "安全分析失败，已返回降级结果"));
+                        .completeOnTimeout(buildTimeoutResult(AgentType.SAFETY, "瀹夊叏鍒嗘瀽瓒呮椂锛屽凡闄嶇骇"), 3, TimeUnit.MINUTES)
+                        .exceptionally(ex -> buildFailedResult(AgentType.SAFETY, "瀹夊叏鍒嗘瀽澶辫触锛屽凡杩斿洖闄嶇骇缁撴灉"));
         CompletableFuture<AgentResult> storageFuture =
                 CompletableFuture.supplyAsync(() -> storageAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.STORAGE, "收纳分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.STORAGE, "收纳分析失败，已返回降级结果"));
+                        .completeOnTimeout(buildTimeoutResult(AgentType.STORAGE, "鏀剁撼鍒嗘瀽瓒呮椂锛屽凡闄嶇骇"), 3, TimeUnit.MINUTES)
+                        .exceptionally(ex -> buildFailedResult(AgentType.STORAGE, "鏀剁撼鍒嗘瀽澶辫触锛屽凡杩斿洖闄嶇骇缁撴灉"));
 
-        // 等这 4 个任务全部结束，先执行完的 Agent 在此阻塞
+        // 绛夎繖 4 涓换鍔″叏閮ㄧ粨鏉燂紝鍏堟墽琛屽畬鐨?Agent 鍦ㄦ闃诲
         CompletableFuture.allOf(layoutFuture, budgetFuture, safetyFuture, storageFuture).join();
 
-        // 取出结果
+        // 鍙栧嚭缁撴灉
         List<AgentResult> results = List.of(
                 layoutFuture.join(),
                 budgetFuture.join(),
@@ -115,20 +115,20 @@ public class DecorationWorkflowService {
                 storageFuture.join()
         );
 
-        // 构造 layoutAgent
+        // 鏋勯€?layoutAgent
         AgentExecutionRecord layoutAgentExecutionRecord = buildAgentExecutionRecord(requestId, sessionId,
                 parentRequestId, userId, structuredRequirement, layoutFuture.join());
-        // 构造 budgetAgent
+        // 鏋勯€?budgetAgent
         AgentExecutionRecord budgetAgentExecutionRecord = buildAgentExecutionRecord(requestId, sessionId,
                 parentRequestId, userId, structuredRequirement, budgetFuture.join());
-        // 构造 safetyAgent
+        // 鏋勯€?safetyAgent
         AgentExecutionRecord safetyAgentExecutionRecord = buildAgentExecutionRecord(requestId, sessionId,
                 parentRequestId, userId, structuredRequirement, safetyFuture.join());
-        // 构造 storageAgent
+        // 鏋勯€?storageAgent
         AgentExecutionRecord storageAgentExecutionRecord = buildAgentExecutionRecord(requestId, sessionId,
                 parentRequestId, userId, structuredRequirement, storageFuture.join());
 
-        // AgentRecord 入库
+        // AgentRecord 鍏ュ簱
         agentExecutionRecordMapper.insert(layoutAgentExecutionRecord);
         System.out.println("layoutAgentExecutionRecord saved, id = " + layoutAgentExecutionRecord.getId());
         agentExecutionRecordMapper.insert(budgetAgentExecutionRecord);
@@ -141,7 +141,7 @@ public class DecorationWorkflowService {
 
         DecorationPlan decorationPlan = coordinatorAgent.execute(structuredRequirement, results);
 
-        // 构造 planRecord
+        // 鏋勯€?planRecord
         PlanRecord planRecord = buildPlanRecord(
                 requestId,
                 sessionId,
@@ -151,7 +151,7 @@ public class DecorationWorkflowService {
                 results,
                 decorationPlan
         );
-        // planRecord 入库
+        // planRecord 鍏ュ簱
         planRecordMapper.insert(planRecord);
         System.out.println("PlanRecord saved, id = " + planRecord.getId());
 
@@ -162,7 +162,7 @@ public class DecorationWorkflowService {
 
 
 
-    // Requirement 记忆持久化
+    // Requirement 璁板繂鎸佷箙鍖?
     private RequirementRecord buildRequirementRecord(
             String requestId,
             String sessionId,
@@ -182,12 +182,12 @@ public class DecorationWorkflowService {
             record.setCreatedAt(LocalDateTime.now());
             return record;
         } catch (Exception e) {
-            throw new RuntimeException("构建 RequirementRecord 失败", e);
+            throw new RuntimeException("鏋勫缓 RequirementRecord 澶辫触", e);
         }
     }
 
 
-    // 并行 Agent 记忆持久化
+    // 骞惰 Agent 璁板繂鎸佷箙鍖?
     private AgentExecutionRecord buildAgentExecutionRecord(
             String requestId,
             String sessionId,
@@ -207,11 +207,11 @@ public class DecorationWorkflowService {
             record.setCreatedAt(LocalDateTime.now());
             return record;
         } catch (Exception e) {
-            throw new RuntimeException("构建 RequirementRecord 失败", e);
+            throw new RuntimeException("鏋勫缓 RequirementRecord 澶辫触", e);
         }
     }
 
-    // CoordinatorAgent 记忆持久化
+    // CoordinatorAgent 璁板繂鎸佷箙鍖?
     private PlanRecord buildPlanRecord(
             String requestId,
             String sessionId,
@@ -233,12 +233,12 @@ public class DecorationWorkflowService {
             record.setCreatedAt(LocalDateTime.now());
             return record;
         } catch (Exception e) {
-            throw new RuntimeException("构建 PlanRecord 失败", e);
+            throw new RuntimeException("鏋勫缓 PlanRecord 澶辫触", e);
         }
     }
 
-    // 异常策略：本质是认为给 AgentResult 填充内容，包括名称、状态、消息等
-    // 1、Agent 失败降级策略
+    // 寮傚父绛栫暐锛氭湰璐ㄦ槸璁や负缁?AgentResult 濉厖鍐呭锛屽寘鎷悕绉般€佺姸鎬併€佹秷鎭瓑
+    // 1銆丄gent 澶辫触闄嶇骇绛栫暐
     private AgentResult buildFailedResult(AgentType agentType, String message) {
         AgentResult result = new AgentResult();
         result.setAgentType(agentType);
@@ -249,7 +249,7 @@ public class DecorationWorkflowService {
         return result;
     }
 
-    // 2、Agent 超时策略
+    // 2銆丄gent 瓒呮椂绛栫暐
     private AgentResult buildTimeoutResult(AgentType agentType, String message) {
         AgentResult result = new AgentResult();
         result.setAgentType(agentType);
@@ -263,3 +263,4 @@ public class DecorationWorkflowService {
 
 
 }
+
