@@ -3,8 +3,7 @@ package com.yzan.yzan_multi_agent.controller;
 
 import com.yzan.yzan_multi_agent.domain.DecorationPlan;
 import com.yzan.yzan_multi_agent.domain.UserRequirement;
-import com.yzan.yzan_multi_agent.workflow.DecorationWorkflowService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yzan.yzan_multi_agent.workflow.PlanGenerationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/plans")
 public class PlanController {
 
-    @Autowired
-    private DecorationWorkflowService decorationWorkflowService;
+    private final PlanGenerationService planGenerationService;
+
+    public PlanController(PlanGenerationService planGenerationService) {
+        this.planGenerationService = planGenerationService;
+    }
 
     @PostMapping("/generate")
     public DecorationPlan generatePlan(@RequestBody UserRequirement userRequirement){
-        return decorationWorkflowService.execute(userRequirement);
+        return planGenerationService.execute(userRequirement);
     }
 }

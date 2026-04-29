@@ -1,4 +1,4 @@
-﻿package com.yzan.yzan_multi_agent.mcp;
+package com.yzan.yzan_multi_agent.mcp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

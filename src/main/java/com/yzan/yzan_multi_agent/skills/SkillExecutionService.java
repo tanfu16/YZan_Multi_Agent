@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SkillExecutionService {
+public class SkillExecutionService implements SkillInvocationService {
 
     private final SkillLoader skillLoader;
     private final SkillIntentRouter skillIntentRouter;

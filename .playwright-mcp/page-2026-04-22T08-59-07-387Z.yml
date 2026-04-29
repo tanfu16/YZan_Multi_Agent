@@ -1,0 +1,135 @@
+- generic [active] [ref=e1]:
+  - navigation "顶部导航" [ref=e4]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - generic [ref=e7]:
+          - img [ref=e8]
+          - link "京东首页" [ref=e10] [cursor=pointer]:
+            - /url: //www.jd.com
+      - listitem
+      - listitem [ref=e11]
+      - listitem [ref=e12]:
+        - link "你好，请登录" [ref=e13] [cursor=pointer]:
+          - /url: javascript:void(0)
+        - link "免费注册" [ref=e14] [cursor=pointer]:
+          - /url: javascript:regist()
+      - listitem [ref=e15]
+      - listitem [ref=e16]:
+        - link "切换企业版" [ref=e18] [cursor=pointer]:
+          - /url: //b.jd.com/?entry=newuser&bjdSourceChannel=cjdqiehuanbjd
+      - generic [ref=e19]:
+        - listitem [ref=e20]
+        - listitem [ref=e21]:
+          - generic [ref=e23] [cursor=pointer]: 同款搜低价
+    - list [ref=e24]:
+      - listitem [ref=e25]:
+        - generic [ref=e26]:
+          - img [ref=e27]
+          - link "购物车" [ref=e29] [cursor=pointer]:
+            - /url: //cart.jd.com/cart.action
+      - listitem [ref=e30]
+      - listitem [ref=e31]:
+        - link "我的订单" [ref=e33] [cursor=pointer]:
+          - /url: //order.jd.com/center/list.action
+      - listitem [ref=e34]
+      - listitem [ref=e35]:
+        - generic [ref=e36]:
+          - link "我的京东" [ref=e37] [cursor=pointer]:
+            - /url: javascript:void(0);
+          - generic [ref=e38]: 
+      - listitem [ref=e39]
+      - listitem [ref=e40]:
+        - generic [ref=e41]:
+          - link "企业采购" [ref=e42] [cursor=pointer]:
+            - /url: //b.jd.com/newuser/?bjdSourceChannel=cjdqiehuanqiyeban
+          - generic [ref=e43]: 
+      - listitem [ref=e44]
+      - listitem [ref=e45]:
+        - button "网站导航" [ref=e46]:
+          - text: 网站导航
+          - generic [ref=e47]: 
+      - listitem [ref=e48]
+      - listitem [ref=e49]:
+        - generic [ref=e50]:
+          - text: 手机京东
+          - generic [ref=e51]: 
+      - listitem [ref=e52]
+      - listitem [ref=e53]:
+        - link "网站无障碍" [ref=e55] [cursor=pointer]:
+          - /url: javascript:void(0)
+  - generic [ref=e147]:
+    - generic [ref=e150]:
+      - link [ref=e152] [cursor=pointer]:
+        - /url: https://www.jd.com/
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - generic [ref=e157] [cursor=pointer]: 商品
+          - generic [ref=e159]:
+            - generic [ref=e160]: 电竞椅升降扶手
+            - generic [ref=e161]: 华帝燃气灶
+            - generic [ref=e162]: 云南白药牙膏
+            - generic [ref=e163]: 电脑主机i7
+            - generic [ref=e164]: 照片打印机
+            - generic [ref=e165]: 卷纸
+            - generic [ref=e166]: hdmi线
+            - generic [ref=e167]: 移动硬盘500g
+            - generic [ref=e168]: 无线鼠标
+            - generic [ref=e169]: 汽车香水
+          - textbox "搜索" [ref=e170]
+          - generic [ref=e171]:
+            - generic [ref=e172]: 搜索
+            - switch [ref=e173] [cursor=pointer]
+          - button "搜索" [ref=e180] [cursor=pointer]
+        - generic [ref=e181]:
+          - generic [ref=e182] [cursor=pointer]: 连衣裙
+          - generic [ref=e183] [cursor=pointer]: 摄像头
+          - generic [ref=e184] [cursor=pointer]: 电话手表
+          - generic [ref=e185] [cursor=pointer]: 跑步机
+          - generic [ref=e186] [cursor=pointer]: 消毒湿巾
+          - generic [ref=e187] [cursor=pointer]: 淡奶油
+          - generic [ref=e188] [cursor=pointer]: 吸尘器
+          - generic [ref=e189] [cursor=pointer]: 灭蚊灯
+          - generic [ref=e190] [cursor=pointer]: 小龙虾
+          - generic [ref=e191] [cursor=pointer]: 冰淇淋
+    - generic [ref=e197]:
+      - generic [ref=e199] [cursor=pointer]:
+        - generic [ref=e200]: 全部商品
+        - generic "企业购精选商品，企业热销、超低折扣、对公支付、开票无忧" [ref=e202]: 企业精选商品
+      - generic [ref=e203]:
+        - generic [ref=e204] [cursor=pointer]:
+          - generic [ref=e205]: 配送至
+          - generic [ref=e209]: 北京朝阳区八里庄街道
+        - generic [ref=e211]:
+          - generic [ref=e212] [cursor=pointer]: 传统模式
+          - generic [ref=e213] [cursor=pointer]: 简洁模式
+  - generic [ref=e221]:
+    - list [ref=e222]:
+      - listitem [ref=e223]:
+        - link "购物车" [ref=e224] [cursor=pointer]:
+          - /url: javascript:void(0)
+          - img [ref=e227]
+          - generic [ref=e228]: 购物车
+      - listitem [ref=e229]:
+        - link "我的" [ref=e230] [cursor=pointer]:
+          - /url: //home.jd.com/
+          - img [ref=e232]
+          - generic [ref=e234]: 我的
+      - listitem [ref=e235]:
+        - link "客服" [ref=e236] [cursor=pointer]:
+          - /url: //jdcs.jd.com/chat/index.action?venderId=1&entry=jd_web_jimi_jdhome
+          - img [ref=e238]
+          - generic [ref=e240]: 客服
+      - listitem [ref=e241]:
+        - link "反馈" [ref=e242] [cursor=pointer]:
+          - /url: https://wj-dongjian.jd.com/q/61961e975d82bb00a9002fc1
+          - img [ref=e244]
+          - generic [ref=e246]: 反馈
+      - listitem [ref=e247]:
+        - link "插件版" [ref=e249] [cursor=pointer]:
+          - /url: javascript:void(0)
+          - img [ref=e251]
+          - generic [ref=e252]: 插件版
+    - link "收起" [ref=e254] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e255]
+      - generic [ref=e256]: 收起

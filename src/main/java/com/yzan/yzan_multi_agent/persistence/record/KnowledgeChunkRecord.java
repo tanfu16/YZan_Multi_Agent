@@ -8,10 +8,13 @@ import java.time.LocalDateTime;
 public class KnowledgeChunkRecord {
 
     private Long id;
+    private String agentDomain;
     private String sourceName;
     private String content;
     private String contentHash;
     private String embeddingJson;
+    private String embeddingVector;
+    private Double similarityScore;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

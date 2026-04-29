@@ -1,9 +1,6 @@
 package com.yzan.yzan_multi_agent.config;
 
 import dev.langchain4j.community.model.dashscope.QwenEmbeddingModel;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +16,7 @@ public class EmbeddingConfig {
         return QwenEmbeddingModel.builder()
                 .apiKey(apiKey)
                 .modelName(modelName)
+                .baseUrl("https://dashscope.aliyuncs.com/api/v1")
                 .build();
-    }
-
-    @Bean
-    public EmbeddingStore<TextSegment> embeddingStore() {
-        return new InMemoryEmbeddingStore<>();
     }
 }

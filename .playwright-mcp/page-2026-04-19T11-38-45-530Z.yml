@@ -1,0 +1,1259 @@
+- generic [active] [ref=e1]:
+  - navigation "顶部导航" [ref=e4]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - generic [ref=e7]:
+          - img [ref=e8]
+          - link "京东首页" [ref=e10] [cursor=pointer]:
+            - /url: //www.jd.com
+      - listitem [ref=e11]:
+        - generic [ref=e12]:
+          - button "地区" [ref=e13] [cursor=pointer]: 中国大陆版
+          - generic [ref=e14]: 
+      - listitem [ref=e15]
+      - listitem [ref=e16]:
+        - link "你好，请登录" [ref=e17] [cursor=pointer]:
+          - /url: javascript:void(0)
+        - link "免费注册" [ref=e18] [cursor=pointer]:
+          - /url: javascript:regist()
+      - listitem [ref=e19]
+      - listitem [ref=e20]:
+        - link "切换企业版" [ref=e22] [cursor=pointer]:
+          - /url: //b.jd.com/?entry=newuser&bjdSourceChannel=cjdqiehuanbjd
+      - generic [ref=e23]:
+        - listitem [ref=e24]
+        - listitem [ref=e25]:
+          - generic [ref=e27] [cursor=pointer]: 同款搜低价
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - generic [ref=e30]:
+          - img [ref=e31]
+          - link "购物车 1" [ref=e33] [cursor=pointer]:
+            - /url: //cart.jd.com/cart.action
+      - listitem [ref=e34]
+      - listitem [ref=e35]:
+        - link "我的订单" [ref=e37] [cursor=pointer]:
+          - /url: //order.jd.com/center/list.action
+      - listitem [ref=e38]
+      - listitem [ref=e39]:
+        - generic [ref=e40]:
+          - link "我的京东" [ref=e41] [cursor=pointer]:
+            - /url: javascript:void(0);
+          - generic [ref=e42]: 
+      - listitem [ref=e43]
+      - listitem [ref=e44]:
+        - generic [ref=e45]:
+          - link "企业采购" [ref=e46] [cursor=pointer]:
+            - /url: //b.jd.com/newuser/?bjdSourceChannel=cjdqiehuanqiyeban
+          - generic [ref=e47]: 
+      - listitem [ref=e48]
+      - listitem [ref=e49]:
+        - button "网站导航" [ref=e50]:
+          - text: 网站导航
+          - generic [ref=e51]: 
+      - listitem [ref=e52]
+      - listitem [ref=e53]:
+        - generic [ref=e54]:
+          - text: 手机京东
+          - generic [ref=e55]: 
+      - listitem [ref=e56]
+      - listitem [ref=e57]:
+        - link "网站无障碍" [ref=e59] [cursor=pointer]:
+          - /url: javascript:void(0)
+  - generic [ref=e62]:
+    - generic [ref=e65]:
+      - link [ref=e67] [cursor=pointer]:
+        - /url: https://www.jd.com/
+      - generic [ref=e68]:
+        - generic [ref=e69]:
+          - generic [ref=e72] [cursor=pointer]: 商品
+          - textbox "搜索" [ref=e74]: 现代简约沙发
+          - generic [ref=e75]:
+            - generic [ref=e76]: 搜索
+            - switch [ref=e77] [cursor=pointer]
+          - button "搜索" [ref=e84] [cursor=pointer]
+        - generic [ref=e85]:
+          - generic [ref=e86] [cursor=pointer]: 欧式沙发
+          - generic [ref=e87] [cursor=pointer]: 现代简约布艺沙发
+          - generic [ref=e88] [cursor=pointer]: 现代简约轻奢沙发
+          - generic [ref=e89] [cursor=pointer]: 奶油风沙发
+          - generic [ref=e90] [cursor=pointer]: 现代简约真皮沙发
+          - generic [ref=e91] [cursor=pointer]: 现代沙发
+          - generic [ref=e92] [cursor=pointer]: 简易沙发
+          - generic [ref=e93] [cursor=pointer]: 雪尼尔布艺沙发
+          - generic [ref=e94] [cursor=pointer]: 沙发茶几一套组合
+          - generic [ref=e95] [cursor=pointer]: 全友家居布艺沙发
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - generic [ref=e101]:
+          - generic [ref=e103] [cursor=pointer]:
+            - generic [ref=e104]: 全部商品
+            - generic "企业购精选商品，企业热销、超低折扣、对公支付、开票无忧" [ref=e106]: 企业精选商品
+          - generic [ref=e107]:
+            - generic [ref=e108] [cursor=pointer]:
+              - generic [ref=e109]: 配送至
+              - generic [ref=e113]: 海外新加坡 Singapore City
+            - generic [ref=e115]:
+              - generic [ref=e116] [cursor=pointer]: 传统模式
+              - generic [ref=e117] [cursor=pointer]: 简洁模式
+        - generic [ref=e120]:
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - generic [ref=e124]: 品牌
+              - generic [ref=e127]:
+                - generic [ref=e129] [cursor=pointer]: 全友（QUANU）
+                - generic [ref=e131] [cursor=pointer]: 沐乐旭
+                - generic [ref=e133] [cursor=pointer]: 京东京造
+                - generic [ref=e135] [cursor=pointer]: 杜杜美家
+                - generic [ref=e137] [cursor=pointer]: 费杰罗
+                - generic [ref=e139] [cursor=pointer]: 林氏家居
+                - generic [ref=e141] [cursor=pointer]: 芝华仕（CHEERS）
+                - generic [ref=e143] [cursor=pointer]: 源氏木语
+                - generic [ref=e145] [cursor=pointer]: 岳瑟
+            - generic [ref=e147] [cursor=pointer]:
+              - generic [ref=e148]: 更多
+              - img [ref=e149]
+          - generic [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]: 展开筛选
+            - img [ref=e157]
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]:
+              - generic [ref=e162]:
+                - generic [ref=e166] [cursor=pointer]:
+                  - generic [ref=e167]: 综合
+                  - img [ref=e168]
+                - generic [ref=e170] [cursor=pointer]:
+                  - generic [ref=e171]: 销量
+                  - img [ref=e172]
+                - generic [ref=e174] [cursor=pointer]:
+                  - generic [ref=e175]: 价格
+                  - img [ref=e176]
+              - generic [ref=e181] [cursor=pointer]:
+                - generic [ref=e182]: 价格区间
+                - img [ref=e183]
+            - generic [ref=e187]:
+              - generic [ref=e190] [cursor=pointer]: 京东物流
+              - img [ref=e194] [cursor=pointer]
+              - img [ref=e198] [cursor=pointer]
+              - generic [ref=e202] [cursor=pointer]:
+                - generic [ref=e204]: 自营/旗舰
+                - img [ref=e206]
+              - generic [ref=e209] [cursor=pointer]: 新品
+              - generic [ref=e213] [cursor=pointer]:
+                - generic [ref=e215]: 品牌
+                - img [ref=e217]
+              - img [ref=e221] [cursor=pointer]
+              - generic [ref=e224] [cursor=pointer]: 货到付款
+              - generic [ref=e227] [cursor=pointer]: 仅显示有货
+              - generic [ref=e230] [cursor=pointer]: 可配送全球
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - img [ref=e234] [cursor=pointer]
+              - generic [ref=e235]: "1"
+              - generic [ref=e236]: /
+              - generic [ref=e237]: "14"
+              - img [ref=e239] [cursor=pointer]
+            - generic [ref=e242] [cursor=pointer]:
+              - generic [ref=e243]: 更多
+              - img [ref=e244]
+      - generic [ref=e245]:
+        - generic [ref=e247]:
+          - generic [ref=e249] [cursor=pointer]:
+            - generic "岳瑟沙发客厅2026新款现代简约沙发床小户型可折叠猫抓皮云朵卧室沙发 耐磨猫抓皮【米白色】易清洁 四人加固款（2.0M折叠）含*2抱枕" [ref=e251]:
+              - img [ref=e253]
+            - generic [ref=e255]:
+              - generic [ref=e256]: 岳瑟沙发客厅2026新款现代简约沙发床小户型可折叠猫抓皮云朵卧室沙发 耐磨猫抓皮【米白色】易清洁 四人加固款（2.0M折叠）含*2抱枕
+              - generic [ref=e258]:
+                - generic [ref=e259]: 最新款沙发
+                - generic [ref=e260]: "|全新升级加厚"
+                - generic [ref=e261]: "|24h顺丰"
+                - generic [ref=e262]: "|顺丰速发"
+                - generic [ref=e263]: "|稳固支腿"
+                - generic [ref=e264]: "|Q弹坐感"
+                - generic [ref=e265]: "|厚实软靠"
+                - generic [ref=e266]: "|透气亲肤"
+                - generic [ref=e267]: "|实木框架"
+                - generic [ref=e268]: "|全区入户"
+              - generic [ref=e269]:
+                - generic [ref=e270]:
+                  - generic [ref=e271]: ¥
+                  - generic [ref=e272]: "369"
+                - generic [ref=e273]: 到手价
+                - generic [ref=e274]: ¥389
+                - generic:
+                  - button [ref=e275]
+                  - img [ref=e276]
+              - generic [ref=e280]: 首购礼金20元
+              - generic [ref=e282]:
+                - generic "已售500+" [ref=e283]
+                - generic "100%好评" [ref=e284]
+              - generic [ref=e287]: 岳瑟家具旗舰店
+          - generic [ref=e290] [cursor=pointer]:
+            - generic "猫抓皮两用沙发客厅出租房公寓办公室沙发床折叠两用单双人客厅房 【016款猫爪皮】米白色 总长200CM【海绵加厚带俩抱枕】" [ref=e292]
+            - generic [ref=e294]:
+              - generic [ref=e295]:
+                - img "京喜自营" [ref=e298]
+                - text: 猫抓皮两用沙发客厅出租房公寓办公室沙发床折叠两用单双人客厅房 【016款猫爪皮】米白色 总长200CM【海绵加厚带俩抱枕】
+              - generic [ref=e300]:
+                - generic [ref=e301]: 沙发可折叠两用
+                - generic [ref=e302]: "|0甲醛无污染"
+                - generic [ref=e303]: "|猫爪皮防水耐磨"
+              - generic [ref=e304]:
+                - generic [ref=e305]:
+                  - generic [ref=e306]: ¥
+                  - generic [ref=e307]: "475"
+                - generic [ref=e308]: 到手价
+                - generic [ref=e309]: ¥485
+                - generic:
+                  - button [ref=e310]
+                  - img [ref=e311]
+              - generic [ref=e313]:
+                - img "百亿补贴" [ref=e315]
+                - generic [ref=e317]: 券满49减10
+              - generic [ref=e319]:
+                - generic "已售700+" [ref=e320]
+                - generic "700+人种草" [ref=e321]
+              - generic [ref=e324]: 京喜自营官方店
+          - generic [ref=e327] [cursor=pointer]:
+            - generic "语森忆新疆西藏包邮折叠沙发床两用小户型简约猫抓皮客厅公寓懒人可睡 升级款防猫抓皮咖啡色 三人位1.8米" [ref=e329]:
+              - img [ref=e331]
+            - generic [ref=e333]:
+              - generic [ref=e334]: 语森忆新疆西藏包邮折叠沙发床两用小户型简约猫抓皮客厅公寓懒人可睡 升级款防猫抓皮咖啡色 三人位1.8米
+              - generic [ref=e336]:
+                - generic [ref=e337]: 可拆洗设计
+                - generic [ref=e338]: "|咖啡色调"
+                - generic [ref=e339]: "|猫抓皮面料"
+                - generic [ref=e340]: "|升级防抓"
+                - generic [ref=e341]: "|两用功能"
+                - generic [ref=e342]: "|简约风格"
+                - generic [ref=e343]: "|小户型适用"
+              - generic [ref=e344]:
+                - generic [ref=e345]:
+                  - generic [ref=e346]: ¥
+                  - generic [ref=e347]: "312"
+                - generic [ref=e348]: 到手价
+                - generic [ref=e349]: ¥322
+                - generic:
+                  - button [ref=e350]
+                  - img [ref=e351]
+              - generic [ref=e355]: 券满200减10
+              - generic [ref=e357]:
+                - generic "已售400+" [ref=e358]
+                - generic "1300+人种草" [ref=e359]
+              - generic [ref=e362]: 山疆办公家具专营店
+          - generic [ref=e365] [cursor=pointer]:
+            - generic "可折叠科技布沙发床一体两用沙发客厅2026新款简易出租屋用小户型 【05款棉麻款】浅灰色+米白 当床含扶手200CM【送俩抱枕】" [ref=e367]
+            - generic [ref=e369]:
+              - generic [ref=e370]:
+                - img "京喜自营" [ref=e373]
+                - text: 可折叠科技布沙发床一体两用沙发客厅2026新款简易出租屋用小户型 【05款棉麻款】浅灰色+米白 当床含扶手200CM【送俩抱枕】
+              - generic [ref=e375]:
+                - generic [ref=e376]: 沙发可折叠两用
+                - generic [ref=e377]: "|0甲醛无污染"
+                - generic [ref=e378]: "|猫爪皮防水耐磨"
+                - generic [ref=e379]: "|送抱枕赠"
+                - generic [ref=e380]: "|猫抓布面"
+                - generic [ref=e381]: "|猫抓风格"
+                - generic [ref=e382]: "|舒适扶手"
+                - generic [ref=e383]: "|米白搭配"
+                - generic [ref=e384]: "|浅灰色调"
+                - generic [ref=e385]: "|科技布料"
+              - generic [ref=e386]:
+                - generic [ref=e387]:
+                  - generic [ref=e388]: ¥
+                  - generic [ref=e389]: "379"
+                - generic [ref=e390]: 到手价
+                - generic [ref=e391]: ¥389
+                - generic:
+                  - button [ref=e392]
+                  - img [ref=e393]
+              - generic [ref=e397]: 券满49减10
+              - generic [ref=e399]:
+                - generic "已售1000+" [ref=e400]
+                - generic "700+人种草" [ref=e401]
+              - generic [ref=e404]: 京喜自营官方店
+          - generic [ref=e407] [cursor=pointer]:
+            - generic "盛浪小户型沙发客厅卧室现代简约出租房公寓休闲小沙发米白色单人" [ref=e409]:
+              - img [ref=e411]
+            - generic [ref=e413]:
+              - generic [ref=e414]:
+                - img "自营" [ref=e417]
+                - text: 盛浪小户型沙发客厅卧室现代简约出租房公寓休闲小沙发米白色单人
+              - generic [ref=e419]:
+                - generic [ref=e420]: 加购10万+
+                - generic [ref=e421]: "|热销10W+"
+                - generic [ref=e422]: "|热销商品榜"
+                - generic [ref=e423]: "|阳台适用"
+                - generic [ref=e424]: "|公寓优质"
+                - generic [ref=e425]: "|出租房佳选"
+                - generic [ref=e426]: "|实木框架"
+                - generic [ref=e427]: "|白色简约"
+              - generic [ref=e428]:
+                - generic [ref=e429]:
+                  - generic [ref=e430]: ¥
+                  - generic [ref=e431]: "369"
+                - generic [ref=e432]: 到手价
+                - generic [ref=e433]: ¥429
+                - generic:
+                  - button [ref=e434]
+                  - img [ref=e435]
+              - generic [ref=e437]:
+                - img "厂商配送" [ref=e439]
+                - generic [ref=e441]: 每200减30
+              - generic [ref=e443]:
+                - generic "已售200+" [ref=e444]
+                - generic "100%好评" [ref=e445]
+              - generic [ref=e448]: 盛浪京东自营旗舰店
+          - generic [ref=e451] [cursor=pointer]:
+            - generic "小户型沙发客厅出租房公寓办公室折叠猫抓皮两用单双人三人沙发床 【07款猫爪皮】深灰色 当床含扶手200CM【带俩抱枕】" [ref=e453]
+            - generic [ref=e455]:
+              - generic [ref=e456]:
+                - img "京喜自营" [ref=e459]
+                - text: 小户型沙发客厅出租房公寓办公室折叠猫抓皮两用单双人三人沙发床 【07款猫爪皮】深灰色 当床含扶手200CM【带俩抱枕】
+              - generic [ref=e462]:
+                - generic [ref=e463]:
+                  - generic "简约风布艺沙发热卖榜第6名" [ref=e464]:
+                    - img [ref=e465]
+                    - text: 简约风布艺沙发热卖榜第6名
+                  - img [ref=e466]
+                - generic [ref=e467]:
+                  - generic [ref=e468]: 沙发可折叠两用
+                  - generic [ref=e469]: "|0甲醛无污染"
+                  - generic [ref=e470]: "|猫爪皮防水耐磨"
+                - generic [ref=e471]:
+                  - generic "简约风布艺沙发热卖榜第6名" [ref=e472]:
+                    - img [ref=e473]
+                    - text: 简约风布艺沙发热卖榜第6名
+                  - img [ref=e474]
+              - generic [ref=e475]:
+                - generic [ref=e476]:
+                  - generic [ref=e477]: ¥
+                  - generic [ref=e478]: "437"
+                - generic [ref=e479]: 已补¥21.38
+                - generic:
+                  - button [ref=e480]
+                  - img [ref=e481]
+              - generic [ref=e483]:
+                - img "百亿补贴" [ref=e485]
+                - generic [ref=e487]: 券满49减10
+              - generic [ref=e489]:
+                - generic "已售600+" [ref=e490]
+                - generic "1200+人种草" [ref=e491]
+              - generic [ref=e494]: 京喜自营官方店
+          - generic [ref=e497] [cursor=pointer]:
+            - generic "布艺沙发小户型客厅出租房简约现代猫抓布多功能可折叠沙发床两用 【014款猫爪皮】浅灰色 含扶手140CM【海绵加厚带俩抱枕】" [ref=e499]
+            - generic [ref=e501]:
+              - generic [ref=e502]:
+                - img "京喜自营" [ref=e505]
+                - text: 布艺沙发小户型客厅出租房简约现代猫抓布多功能可折叠沙发床两用 【014款猫爪皮】浅灰色 含扶手140CM【海绵加厚带俩抱枕】
+              - generic [ref=e507]:
+                - generic [ref=e508]: 沙发可折叠两用
+                - generic [ref=e509]: "|0甲醛无污染"
+                - generic [ref=e510]: "|猫爪皮防水耐磨"
+              - generic [ref=e511]:
+                - generic [ref=e512]:
+                  - generic [ref=e513]: ¥
+                  - generic [ref=e514]: "331"
+                - generic [ref=e515]: 到手价
+                - generic [ref=e516]: ¥399
+                - generic:
+                  - button [ref=e517]
+                  - img [ref=e518]
+              - generic [ref=e522]: 官方直降12%
+              - generic [ref=e524]:
+                - generic "已售500+" [ref=e525]
+                - generic "99%好评" [ref=e526]
+              - generic [ref=e529]: 京喜自营官方店
+          - generic [ref=e532] [cursor=pointer]:
+            - generic "沙发小户型出租屋折叠多功能沙发客厅新款公寓卧室折叠两用沙发床 米白拼橙色【免洗猫爪皮】 1.8米三人位" [ref=e534]
+            - generic [ref=e536]:
+              - generic [ref=e537]:
+                - img "京喜自营" [ref=e540]
+                - text: 沙发小户型出租屋折叠多功能沙发客厅新款公寓卧室折叠两用沙发床 米白拼橙色【免洗猫爪皮】 1.8米三人位
+              - generic [ref=e543]:
+                - generic [ref=e544]:
+                  - generic "简约风布艺沙发热卖榜第3名" [ref=e545]:
+                    - img [ref=e546]
+                    - text: 简约风布艺沙发热卖榜第3名
+                  - img [ref=e547]
+                - generic [ref=e548]:
+                  - generic [ref=e549]: 免洗耐磨
+                  - generic [ref=e550]: "|海绵舒适"
+                  - generic [ref=e551]: "|简约风格"
+                  - generic [ref=e552]: "|小户型适"
+                  - generic [ref=e553]: "|秒变睡床"
+                  - generic [ref=e554]: "|多功能用"
+                  - generic [ref=e555]: "|多功能设计"
+                  - generic [ref=e556]: "|猫爪皮面"
+                  - generic [ref=e557]: "|米白拼橙"
+                  - generic [ref=e558]: "|猫抓布料"
+                - generic [ref=e559]:
+                  - generic "简约风布艺沙发热卖榜第3名" [ref=e560]:
+                    - img [ref=e561]
+                    - text: 简约风布艺沙发热卖榜第3名
+                  - img [ref=e562]
+              - generic [ref=e563]:
+                - generic [ref=e564]:
+                  - generic [ref=e565]: ¥
+                  - generic [ref=e566]: "206"
+                - generic [ref=e567]: 已补¥43
+                - generic:
+                  - button [ref=e568]
+                  - img [ref=e569]
+              - generic [ref=e571]:
+                - img "百亿补贴" [ref=e573]
+                - generic [ref=e575]: 券满49减10
+              - generic [ref=e577]:
+                - generic "已售3万+" [ref=e578]
+                - generic "2万+人种草" [ref=e579]
+              - generic [ref=e582]: 京喜自营官方店
+          - generic [ref=e585] [cursor=pointer]:
+            - generic "奶油风布艺沙发 客厅小户型 现代简约云朵家用沙发 2026新款沙发 高品质绒布面料+高回弹海绵（颜色需备注） 脚踏 0.84m" [ref=e587]
+            - generic [ref=e589]:
+              - generic [ref=e590]:
+                - img "京喜自营" [ref=e593]
+                - text: 奶油风布艺沙发 客厅小户型 现代简约云朵家用沙发 2026新款沙发 高品质绒布面料+高回弹海绵（颜色需备注） 脚踏 0.84m
+              - generic [ref=e595]:
+                - generic [ref=e596]: 易打理
+                - generic [ref=e597]: "|省空间"
+                - generic [ref=e598]: "|高回弹海绵"
+                - generic [ref=e599]: "|舒适脚踏"
+                - generic [ref=e600]: "|0.84米宽"
+                - generic [ref=e601]: "|云朵造型"
+                - generic [ref=e602]: "|现代简约"
+                - generic [ref=e603]: "|小户型适用"
+                - generic [ref=e604]: "|高品质绒布"
+              - generic [ref=e605]:
+                - generic [ref=e606]:
+                  - generic [ref=e607]: ¥
+                  - generic [ref=e608]: "285"
+                - generic [ref=e609]: 到手价
+                - generic [ref=e610]: ¥295
+                - generic:
+                  - button [ref=e611]
+                  - img [ref=e612]
+              - generic [ref=e616]: 券满49减10
+              - generic [ref=e618]:
+                - generic "已售200+" [ref=e619]
+                - generic "800+人种草" [ref=e620]
+              - generic [ref=e623]: 京喜自营官方店
+          - generic [ref=e626] [cursor=pointer]:
+            - generic "全友家居 科技布艺沙发客厅小户型现代简约直排式一字沙发家用" [ref=e628]:
+              - img [ref=e630]
+            - generic [ref=e632]:
+              - generic [ref=e633]:
+                - img "自营" [ref=e636]
+                - text: 全友家居 科技布艺沙发客厅小户型现代简约直排式一字沙发家用
+              - generic [ref=e639]:
+                - generic [ref=e640]:
+                  - generic "可拆洗布艺沙发热卖榜第1名" [ref=e641]:
+                    - img [ref=e642]
+                    - text: 可拆洗布艺沙发热卖榜第1名
+                  - img [ref=e643]
+                - generic [ref=e644]:
+                  - generic [ref=e645]: 组合灵活
+                  - generic [ref=e646]: "|双层海绵叠加"
+                  - generic [ref=e647]: "|微孔式高弹棉填充"
+                  - generic [ref=e648]: "|舒适体验"
+                - generic [ref=e649]:
+                  - generic "可拆洗布艺沙发热卖榜第1名" [ref=e650]:
+                    - img [ref=e651]
+                    - text: 可拆洗布艺沙发热卖榜第1名
+                  - img [ref=e652]
+              - generic [ref=e653]:
+                - generic [ref=e654]:
+                  - generic [ref=e655]: ¥
+                  - generic [ref=e656]: "2428"
+                  - generic [ref=e657]: .
+                  - generic [ref=e658]: "98"
+                - generic [ref=e659]: 到手价
+                - generic [ref=e660]: ¥3036.23
+                - generic:
+                  - button [ref=e661]
+                  - img [ref=e662]
+              - generic [ref=e664]:
+                - img "百亿补贴" [ref=e666]
+                - generic [ref=e668]: 立享8折
+              - generic [ref=e670]:
+                - generic "已售2万+" [ref=e671]
+                - generic "4万+人种草" [ref=e672]
+              - generic [ref=e675]: 全友家居京东自营旗舰店
+          - generic [ref=e678] [cursor=pointer]:
+            - generic "何佳功布艺沙发现代简约客厅组合大小户型2026新款佛山家俱科技布沙发 二件套送凳子 棉麻:海绵版" [ref=e680]:
+              - img [ref=e682]
+              - generic: 暂不支持配送
+            - generic [ref=e684]:
+              - generic [ref=e685]: 何佳功布艺沙发现代简约客厅组合大小户型2026新款佛山家俱科技布沙发 二件套送凳子 棉麻:海绵版
+              - generic [ref=e687]:
+                - generic [ref=e688]: 海绵
+                - generic [ref=e689]: "|简约风"
+              - generic [ref=e690]:
+                - generic [ref=e691]:
+                  - generic [ref=e692]: ¥
+                  - generic [ref=e693]: "7890"
+                - generic [ref=e694]: 到手价
+                - generic [ref=e695]: ¥9240
+              - generic [ref=e696]:
+                - img "京东物流" [ref=e698]
+                - img "新品" [ref=e700]
+                - generic [ref=e702]: 每300减45
+              - generic [ref=e704]:
+                - generic "18人看过" [ref=e705]
+                - generic "100%好评" [ref=e706]
+              - generic [ref=e709]: 瑞迹晨家居专营店
+          - generic [ref=e712] [cursor=pointer]:
+            - generic "【京喜甄选】沙发小户型客厅出租现代猫抓布三人折叠沙发床两用 墨绿+米白 2.0米四人位" [ref=e714]
+            - generic [ref=e716]:
+              - generic [ref=e717]:
+                - img "京喜自营" [ref=e720]
+                - text: 【京喜甄选】沙发小户型客厅出租现代猫抓布三人折叠沙发床两用 墨绿+米白 2.0米四人位
+              - generic [ref=e722]:
+                - generic [ref=e723]: 海绵
+                - generic [ref=e724]: "|轻奢风"
+                - generic [ref=e725]: "|猫抓布"
+              - generic [ref=e726]:
+                - generic [ref=e727]:
+                  - generic [ref=e728]: ¥
+                  - generic [ref=e729]: "366"
+                - generic [ref=e730]: 到手价
+                - generic [ref=e731]: ¥428
+                - generic:
+                  - button [ref=e732]
+                  - img [ref=e733]
+              - generic [ref=e737]: 官方直降12%
+              - generic [ref=e739]:
+                - generic "已售2000+" [ref=e740]
+                - generic "99%好评" [ref=e741]
+              - generic [ref=e744]: 京喜自营官方店
+          - generic [ref=e747] [cursor=pointer]:
+            - generic "狄普牛皮艺沙发意式高级感客厅直排2.8米沙发床十大品牌Ultra版赛尔德" [ref=e749]:
+              - img [ref=e751]
+            - generic [ref=e753]:
+              - generic [ref=e754]:
+                - img "自营" [ref=e757]
+                - text: 狄普牛皮艺沙发意式高级感客厅直排2.8米沙发床十大品牌Ultra版赛尔德
+              - generic [ref=e759]:
+                - img [ref=e760]
+                - img [ref=e761]
+                - generic "轻奢风格 高韧性橡筋" [ref=e762]
+              - generic [ref=e763]:
+                - generic [ref=e764]:
+                  - generic [ref=e765]: ¥
+                  - generic [ref=e766]: "4826"
+                  - generic [ref=e767]: .
+                  - generic [ref=e768]: "4"
+                - generic [ref=e769]: 到手价
+                - generic [ref=e770]: ¥7158
+                - generic:
+                  - button [ref=e771]
+                  - img [ref=e772]
+              - generic [ref=e774]:
+                - img "厂商配送" [ref=e776]
+                - generic [ref=e778]: 立享8折
+              - generic [ref=e780]:
+                - generic "已售10万+" [ref=e781]
+                - generic "1500+人种草" [ref=e782]
+              - generic [ref=e785]: 狄普京东自营旗舰店
+          - generic [ref=e788] [cursor=pointer]:
+            - generic "现代简约客厅小户型三人位网红布艺沙发家用双人位简易沙发 浅灰色【科技布】 双人位【海绵款】" [ref=e790]
+            - generic [ref=e792]:
+              - generic [ref=e793]:
+                - img "京喜自营" [ref=e796]
+                - text: 现代简约客厅小户型三人位网红布艺沙发家用双人位简易沙发 浅灰色【科技布】 双人位【海绵款】
+              - generic [ref=e798]:
+                - generic [ref=e799]: 易清洁打理
+                - generic [ref=e800]: "|高回弹海绵"
+                - generic [ref=e801]: "|稳固实木架"
+              - generic [ref=e802]:
+                - generic [ref=e803]:
+                  - generic [ref=e804]: ¥
+                  - generic [ref=e805]: "287"
+                  - generic [ref=e806]: .
+                  - generic [ref=e807]: "7"
+                - generic [ref=e808]: 到手价
+                - generic [ref=e809]: ¥349.7
+                - generic:
+                  - button [ref=e810]
+                  - img [ref=e811]
+              - generic [ref=e815]: 官方直降12%
+              - generic [ref=e817]:
+                - generic "已售1000+" [ref=e818]
+                - generic "99%好评" [ref=e819]
+              - generic [ref=e822]: 京喜自营官方店
+          - generic [ref=e825] [cursor=pointer]:
+            - generic "狄普意式极简皮艺单人沙发椅现代简约轻奢大气椅客厅小户型休闲椅 0.9m双扶手单人位-卡其色" [ref=e827]:
+              - img [ref=e829]
+            - generic [ref=e831]:
+              - generic [ref=e832]: 狄普意式极简皮艺单人沙发椅现代简约轻奢大气椅客厅小户型休闲椅 0.9m双扶手单人位-卡其色
+              - generic [ref=e834]:
+                - img [ref=e835]
+                - img [ref=e836]
+                - generic "双扶手设计 现代简约" [ref=e837]
+              - generic [ref=e838]:
+                - generic [ref=e839]:
+                  - generic [ref=e840]: ¥
+                  - generic [ref=e841]: "1634"
+                - generic [ref=e842]: 到手价
+                - generic [ref=e843]: ¥2599
+                - generic:
+                  - button [ref=e844]
+                  - img [ref=e845]
+              - generic [ref=e847]:
+                - generic [ref=e849]: 官方直降25%
+                - generic [ref=e851]: 券满3600减540
+              - generic [ref=e853]:
+                - generic "已售500+" [ref=e854]
+                - generic "100+人好评" [ref=e855]
+              - generic [ref=e858]: 狄普官方旗舰店
+          - generic [ref=e861] [cursor=pointer]:
+            - generic "小户型沙发客厅出租房公寓办公室折叠猫抓皮两用单双人三人沙发床 【011款猫爪皮】深灰色 长0.55米单独脚踏【无抱枕】" [ref=e863]
+            - generic [ref=e865]:
+              - generic [ref=e866]:
+                - img "京喜自营" [ref=e869]
+                - text: 小户型沙发客厅出租房公寓办公室折叠猫抓皮两用单双人三人沙发床 【011款猫爪皮】深灰色 长0.55米单独脚踏【无抱枕】
+              - generic [ref=e871]:
+                - generic [ref=e872]: 沙发可折叠两用
+                - generic [ref=e873]: "|0甲醛无污染"
+                - generic [ref=e874]: "|猫爪皮防水耐磨"
+                - generic [ref=e875]: "|现货速发"
+                - generic [ref=e876]: "|破损包赔"
+                - generic [ref=e877]: "|防污耐磨"
+                - generic [ref=e878]: "|折叠两用"
+                - generic [ref=e879]: "|送货上楼"
+                - generic [ref=e880]: "|猫爪皮质"
+                - generic [ref=e881]: "|三挡调节"
+              - generic [ref=e882]:
+                - generic [ref=e883]:
+                  - generic [ref=e884]: ¥
+                  - generic [ref=e885]: "83"
+                - generic:
+                  - button [ref=e886]
+                  - img [ref=e887]
+              - generic [ref=e891]:
+                - generic "已售700+" [ref=e892]
+                - generic "400+人种草" [ref=e893]
+              - generic [ref=e896]: 京喜自营官方店
+          - generic [ref=e899] [cursor=pointer]:
+            - generic "【京喜甄选】沙发客厅折叠沙发床两用小户型出租房布艺沙发卧室 橘红色【加宽加厚海绵】 四人位 2m +抱枕【推荐】" [ref=e901]
+            - generic [ref=e903]:
+              - generic [ref=e904]:
+                - img "京喜自营" [ref=e907]
+                - text: 【京喜甄选】沙发客厅折叠沙发床两用小户型出租房布艺沙发卧室 橘红色【加宽加厚海绵】 四人位 2m +抱枕【推荐】
+              - generic [ref=e909]:
+                - generic [ref=e910]: 空间节省
+                - generic [ref=e911]: "|高弹海绵"
+                - generic [ref=e912]: "|透气亲肤"
+              - generic [ref=e913]:
+                - generic [ref=e914]:
+                  - generic [ref=e915]: ¥
+                  - generic [ref=e916]: "289"
+                - generic [ref=e917]: 到手价
+                - generic [ref=e918]: ¥299
+                - generic:
+                  - button [ref=e919]
+                  - img [ref=e920]
+              - generic [ref=e924]: 券满49减10
+              - generic [ref=e926]:
+                - generic "已售2000+" [ref=e927]
+                - generic "99%好评" [ref=e928]
+              - generic [ref=e931]: 京喜自营官方店
+          - generic [ref=e934] [cursor=pointer]:
+            - generic "灰尼像素模块转角贵妃组合沙发客厅可全拆洗直排雪尼尔布艺模块沙发 （可拆洗+可调节）3.25米【直贵+单+短贵】 【豪华版】比利时进口雪尼尔绒-记忆棉+海绵" [ref=e936]:
+              - img [ref=e938]
+            - generic [ref=e940]:
+              - generic [ref=e941]: 灰尼像素模块转角贵妃组合沙发客厅可全拆洗直排雪尼尔布艺模块沙发 （可拆洗+可调节）3.25米【直贵+单+短贵】 【豪华版】比利时进口雪尼尔绒-记忆棉+海绵
+              - generic [ref=e943]:
+                - generic [ref=e944]: 可调节靠背
+                - generic [ref=e945]: "|太空坐感"
+                - generic [ref=e946]: "|可拆洗设计"
+                - generic [ref=e947]: "|记忆棉填充"
+                - generic [ref=e948]: "|直排布局"
+                - generic [ref=e949]: "|进口雪尼尔"
+                - generic [ref=e950]: "|豪华版享受"
+                - generic [ref=e951]: "|舒适座深"
+                - generic [ref=e952]: "|极简风格"
+                - generic [ref=e953]: "|3.2米以上"
+              - generic [ref=e954]:
+                - generic [ref=e955]:
+                  - generic [ref=e956]: ¥
+                  - generic [ref=e957]: "5780"
+                - generic [ref=e958]: 到手价
+                - generic [ref=e959]: ¥7506
+                - generic:
+                  - button [ref=e960]
+                  - img [ref=e961]
+              - generic [ref=e965]: 官方直降15%
+              - generic [ref=e967]:
+                - generic "已售100+" [ref=e968]
+                - generic "100%好评" [ref=e969]
+              - generic [ref=e972]: 灰尼家具旗舰店
+          - generic [ref=e975] [cursor=pointer]:
+            - generic "狄普 布艺沙发 RM防猫抓绒布豆腐块极简办公客厅沙发伴侣" [ref=e977]:
+              - img [ref=e979]
+            - generic [ref=e981]:
+              - generic [ref=e982]:
+                - img "自营" [ref=e985]
+                - text: 狄普 布艺沙发 RM防猫抓绒布豆腐块极简办公客厅沙发伴侣
+              - generic [ref=e987]:
+                - generic [ref=e988]: 不易变形框架
+                - generic [ref=e989]: "|8防猫抓布"
+                - generic [ref=e990]: "|蜂窝微孔海绵"
+                - generic [ref=e991]: "|深座舒适"
+                - generic [ref=e992]: "|时尚外观"
+                - generic [ref=e993]: "|深座设计"
+                - generic [ref=e994]: "|一字型设计"
+                - generic [ref=e995]: "|易清洁材质"
+                - generic [ref=e996]: "|舒适体验"
+                - generic [ref=e997]: "|家居百搭"
+              - generic [ref=e998]:
+                - generic [ref=e999]:
+                  - generic [ref=e1000]: ¥
+                  - generic [ref=e1001]: "420"
+                  - generic [ref=e1002]: .
+                  - generic [ref=e1003]: "4"
+                - generic [ref=e1004]: 到手价
+                - generic [ref=e1005]: ¥638
+                - generic:
+                  - button [ref=e1006]
+                  - img [ref=e1007]
+              - generic [ref=e1009]:
+                - img "厂商配送" [ref=e1011]
+                - generic [ref=e1013]: 立享8折
+                - generic [ref=e1015]: 券满2100减315
+              - generic [ref=e1017]:
+                - generic "已售100+" [ref=e1018]
+                - generic "100%好评" [ref=e1019]
+              - generic [ref=e1022]: 狄普京东自营旗舰店
+          - generic [ref=e1025] [cursor=pointer]:
+            - generic "芝华仕简约现代2026新款科技布沙发客厅小户型北欧轻奢直排三四人位家具 海绵款【浅灰色】-科技布 五人位 3.3m 大+脚踏" [ref=e1027]
+            - generic [ref=e1029]:
+              - generic "芝华仕简约现代2026新款科技布沙发客厅小户型北欧轻奢直排三四人位家具 海绵款【浅灰色】-科技布 五人位 3.3m 大+脚踏" [ref=e1031]
+              - generic [ref=e1033]:
+                - generic [ref=e1034]: 海绵
+                - generic [ref=e1035]: "|北欧风"
+                - generic [ref=e1036]: "|科技布"
+              - generic [ref=e1037]:
+                - generic [ref=e1038]:
+                  - generic [ref=e1039]: ¥
+                  - generic [ref=e1040]: "3439"
+                - generic:
+                  - button [ref=e1041]
+                  - img [ref=e1042]
+              - generic "100%好评" [ref=e1047]
+              - generic [ref=e1050]: 荃歆庭专营店
+          - generic [ref=e1053] [cursor=pointer]:
+            - generic "MOLIKOA2026新款真皮沙发头层牛皮直排钢琴键沙发客厅广东佛山高端沙发 [豪华版50D]2.8米大三人位" [ref=e1055]:
+              - img [ref=e1057]
+            - generic [ref=e1059]:
+              - generic [ref=e1060]: MOLIKOA2026新款真皮沙发头层牛皮直排钢琴键沙发客厅广东佛山高端沙发 [豪华版50D]2.8米大三人位
+              - generic [ref=e1062]:
+                - img [ref=e1063]
+                - img [ref=e1064]
+                - generic "头层牛皮 豪华版型" [ref=e1065]
+              - generic [ref=e1066]:
+                - generic [ref=e1067]:
+                  - generic [ref=e1068]: ¥
+                  - generic [ref=e1069]: "5367"
+                  - generic [ref=e1070]: .
+                  - generic [ref=e1071]: "2"
+                - generic [ref=e1072]: 到手价
+                - generic [ref=e1073]: ¥6432
+                - generic:
+                  - button [ref=e1074]
+                  - img [ref=e1075]
+              - generic [ref=e1077]:
+                - img "新品" [ref=e1079]
+                - generic [ref=e1081]: 首购礼金100元
+                - generic [ref=e1083]: 立享8.5折
+              - generic [ref=e1085]:
+                - generic "2000+人看过" [ref=e1086]
+                - generic "2200+人种草" [ref=e1087]
+              - generic [ref=e1090]: MOLIKOA沙发旗舰店
+          - generic [ref=e1093] [cursor=pointer]:
+            - generic "何佳功沙发出租房屋卧室服装店简易公寓客厅网红双人三人布艺小户型沙发 浅灰 大双【送货入户+送2抱枕】 143cm" [ref=e1095]
+            - generic [ref=e1097]:
+              - generic "何佳功沙发出租房屋卧室服装店简易公寓客厅网红双人三人布艺小户型沙发 浅灰 大双【送货入户+送2抱枕】 143cm" [ref=e1099]
+              - generic [ref=e1101]:
+                - generic [ref=e1102]: 小户型用
+                - generic [ref=e1103]: "|双人沙发"
+                - generic [ref=e1104]: "|布艺简约"
+              - generic [ref=e1105]:
+                - generic [ref=e1106]:
+                  - generic [ref=e1107]: ¥
+                  - generic [ref=e1108]: "1041"
+                  - generic [ref=e1109]: .
+                  - generic [ref=e1110]: "42"
+                - generic:
+                  - button [ref=e1111]
+                  - img [ref=e1112]
+              - generic "100%好评" [ref=e1117]
+              - generic [ref=e1120]: 繁莘家居日用专营店
+          - generic [ref=e1123] [cursor=pointer]:
+            - generic "索菲尼接触面头层牛皮功能沙发" [ref=e1125]
+            - generic [ref=e1127]:
+              - generic [ref=e1128]: 索菲尼接触面头层牛皮功能沙发
+              - generic [ref=e1130]:
+                - generic [ref=e1131]: 直排
+                - generic [ref=e1132]: "|按键控制"
+                - generic [ref=e1133]: "|海绵"
+              - generic [ref=e1134]:
+                - generic [ref=e1135]:
+                  - generic [ref=e1136]: ¥
+                  - generic [ref=e1137]: "14888"
+                - generic:
+                  - button [ref=e1138]
+                  - img [ref=e1139]
+              - generic [ref=e1143]:
+                - generic "100+人看过" [ref=e1144]
+                - generic "100%好评" [ref=e1145]
+              - generic [ref=e1148]: 索菲尼韦富专卖店
+          - generic [ref=e1151] [cursor=pointer]:
+            - generic "何佳功意式轻奢设计师科技布直排三人位真皮沙发现代简约小户型客厅沙发 2.3米三人位【进口头层全真皮】" [ref=e1153]
+            - generic [ref=e1155]:
+              - generic [ref=e1156]: 何佳功意式轻奢设计师科技布直排三人位真皮沙发现代简约小户型客厅沙发 2.3米三人位【进口头层全真皮】
+              - generic [ref=e1158]:
+                - generic [ref=e1159]: 海绵
+                - generic [ref=e1160]: "|轻奢风"
+                - generic [ref=e1161]: "|头层牛皮"
+              - generic [ref=e1162]:
+                - generic [ref=e1163]:
+                  - generic [ref=e1164]: ¥
+                  - generic [ref=e1165]: "33985"
+                - generic [ref=e1166]: 到手价
+                - generic [ref=e1167]: ¥38620
+                - generic:
+                  - button [ref=e1168]
+                  - img [ref=e1169]
+              - generic [ref=e1171]:
+                - generic [ref=e1173]: 官方直降12%
+                - generic [ref=e1175]: 包邮
+              - generic [ref=e1177]:
+                - generic "8人看过" [ref=e1178]
+                - generic "100%好评" [ref=e1179]
+              - generic [ref=e1182]: 希行居家专营店
+          - generic [ref=e1185] [cursor=pointer]:
+            - generic "语森忆沙发客厅2026新款棉麻可拆洗布艺沙发客厅简约小户型现代直排沙发 深灰棉麻+45D海绵坐垫 四人位 2.8米直排【四人位】" [ref=e1187]:
+              - img [ref=e1189]
+            - generic [ref=e1191]:
+              - generic [ref=e1192]: 语森忆沙发客厅2026新款棉麻可拆洗布艺沙发客厅简约小户型现代直排沙发 深灰棉麻+45D海绵坐垫 四人位 2.8米直排【四人位】
+              - generic [ref=e1194]:
+                - img [ref=e1195]
+                - img [ref=e1196]
+                - generic "舒适耐用 棉麻面料 简约时尚" [ref=e1197]
+              - generic [ref=e1198]:
+                - generic [ref=e1199]:
+                  - generic [ref=e1200]: ¥
+                  - generic [ref=e1201]: "3108"
+                - generic [ref=e1202]: 到手价
+                - generic [ref=e1203]: ¥3648
+                - generic:
+                  - button [ref=e1204]
+                  - img [ref=e1205]
+              - generic [ref=e1207]:
+                - img "新品" [ref=e1209]
+                - generic [ref=e1211]: 每200减30
+              - generic [ref=e1213]:
+                - generic "54人看过" [ref=e1214]
+                - generic "100%好评" [ref=e1215]
+              - generic [ref=e1218]: 鲸晖家具旗舰店
+          - generic [ref=e1221] [cursor=pointer]:
+            - generic "芝华仕2026新款雪尼尔棉麻布艺沙发客厅简约现代小户型贵妃沙发转角组合 雪尼尔棉麻面料【乳胶款】多色可选 四人位 3.5m 直排+脚踏+双扶手单人" [ref=e1223]
+            - generic [ref=e1225]:
+              - generic "芝华仕2026新款雪尼尔棉麻布艺沙发客厅简约现代小户型贵妃沙发转角组合 雪尼尔棉麻面料【乳胶款】多色可选 四人位 3.5m 直排+脚踏+双扶手单人" [ref=e1227]
+              - generic [ref=e1229]:
+                - generic [ref=e1230]: 乳胶
+                - generic [ref=e1231]: "|简约风"
+                - generic [ref=e1232]: "|雪尼尔"
+              - generic [ref=e1233]:
+                - generic [ref=e1234]:
+                  - generic [ref=e1235]: ¥
+                  - generic [ref=e1236]: "9269"
+                - generic:
+                  - button [ref=e1237]
+                  - img [ref=e1238]
+              - generic "100%好评" [ref=e1243]
+              - generic [ref=e1246]: 荃歆庭专营店
+          - generic [ref=e1249] [cursor=pointer]:
+            - generic "岩色办公沙发客厅现代简约复古奶油实木沙发轻奢风意式简约 彩虹椅" [ref=e1251]:
+              - img [ref=e1253]
+            - generic [ref=e1255]:
+              - generic [ref=e1256]:
+                - img "自营" [ref=e1259]
+                - text: 岩色办公沙发客厅现代简约复古奶油实木沙发轻奢风意式简约 彩虹椅
+              - generic [ref=e1261]:
+                - generic [ref=e1262]: 实木
+                - generic [ref=e1263]: "|皮艺沙发"
+                - generic [ref=e1264]: "|非组合"
+              - generic [ref=e1265]:
+                - generic [ref=e1266]:
+                  - generic [ref=e1267]: ¥
+                  - generic [ref=e1268]: "1715"
+                  - generic [ref=e1269]: .
+                  - generic [ref=e1270]: "3"
+                - generic [ref=e1271]: 到手价
+                - generic [ref=e1272]: ¥2018
+                - generic:
+                  - button [ref=e1273]
+                  - img [ref=e1274]
+              - generic [ref=e1276]:
+                - img "厂商配送" [ref=e1278]
+                - generic [ref=e1280]: 立享8.5折
+              - generic [ref=e1282]:
+                - generic "已售100" [ref=e1283]
+                - generic "100%好评" [ref=e1284]
+              - generic [ref=e1287]: 岩色家具京东自营旗舰店
+          - generic [ref=e1290] [cursor=pointer]:
+            - generic "何佳功全实木沙发L型侘寂风格简约会客休闲客厅沙发椅组合民宿酒店家俱 2.6米L型款沙发" [ref=e1292]
+            - generic [ref=e1294]:
+              - generic [ref=e1295]: 何佳功全实木沙发L型侘寂风格简约会客休闲客厅沙发椅组合民宿酒店家俱 2.6米L型款沙发
+              - generic [ref=e1297]:
+                - generic [ref=e1298]: L型设计
+                - generic [ref=e1299]: "|全实木"
+                - generic [ref=e1300]: "|侘寂风格"
+                - generic [ref=e1301]: "|L型布局"
+                - generic [ref=e1302]: "|简约设计"
+                - generic [ref=e1303]: "|全实木材质"
+                - generic [ref=e1304]: "|2.6米尺寸"
+              - generic [ref=e1305]:
+                - generic [ref=e1306]:
+                  - generic [ref=e1307]: ¥
+                  - generic [ref=e1308]: "268516"
+                - generic:
+                  - button [ref=e1309]
+                  - img [ref=e1310]
+              - generic [ref=e1312]:
+                - generic [ref=e1314]: 首购礼金28元
+                - generic [ref=e1316]: 每300减45
+              - generic [ref=e1318]:
+                - generic "100+人看过" [ref=e1319]
+                - generic "100%好评" [ref=e1320]
+              - generic [ref=e1323]: 莱凡日用专营店
+          - generic [ref=e1326] [cursor=pointer]:
+            - generic "铁艺沙发小桌长凳组合简约轻奢休闲现代小户型北欧店铺装修工业风 单人沙发+双人沙发+三人沙发+茶几" [ref=e1328]
+            - generic [ref=e1330]:
+              - generic [ref=e1331]:
+                - img "京喜自营" [ref=e1334]
+                - text: 铁艺沙发小桌长凳组合简约轻奢休闲现代小户型北欧店铺装修工业风 单人沙发+双人沙发+三人沙发+茶几
+              - generic [ref=e1336]:
+                - generic [ref=e1337]: 轻松清洁
+                - generic [ref=e1338]: "|宽敞舒适"
+                - generic [ref=e1339]: "|坚固耐用"
+                - generic [ref=e1340]: "|工业风格"
+                - generic [ref=e1341]: "|可拆洗设计"
+                - generic [ref=e1342]: "|现代时尚"
+                - generic [ref=e1343]: "|简约轻奢"
+                - generic [ref=e1344]: "|休闲舒适"
+                - generic [ref=e1345]: "|组合多样"
+                - generic [ref=e1346]: "|小户型适用"
+              - generic [ref=e1347]:
+                - generic [ref=e1348]:
+                  - generic [ref=e1349]: ¥
+                  - generic [ref=e1350]: "1571"
+                - generic [ref=e1351]: 到手价
+                - generic [ref=e1352]: ¥1899
+                - generic:
+                  - button [ref=e1353]
+                  - img [ref=e1354]
+              - generic [ref=e1358]: 官方直降12%
+              - generic [ref=e1360]:
+                - generic "21人看过" [ref=e1361]
+                - generic "100%好评" [ref=e1362]
+              - generic [ref=e1365]: 京喜自营官方店
+          - generic [ref=e1368] [cursor=pointer]:
+            - generic "山头林村新中式大小公寓北美黑胡桃沙发咖啡桌组合现代简约轻奢实木沙发椅 L形沙发(北美黑胡桃木)" [ref=e1370]
+            - generic [ref=e1372]:
+              - generic [ref=e1373]: 山头林村新中式大小公寓北美黑胡桃沙发咖啡桌组合现代简约轻奢实木沙发椅 L形沙发(北美黑胡桃木)
+              - generic [ref=e1375]:
+                - generic [ref=e1376]: 聚氨酯泡沫
+                - generic [ref=e1377]: "|简约风"
+              - generic [ref=e1378]:
+                - generic [ref=e1379]:
+                  - generic [ref=e1380]: ¥
+                  - generic [ref=e1381]: "157009"
+                - generic:
+                  - button [ref=e1382]
+                  - img [ref=e1383]
+              - generic [ref=e1387]:
+                - generic "38人看过" [ref=e1388]
+                - generic "100%好评" [ref=e1389]
+              - generic [ref=e1392]: 满怀家居饰品专营店
+        - generic [ref=e1395]:
+          - generic [ref=e1396]: 上一页
+          - generic [ref=e1397] [cursor=pointer]: "1"
+          - generic [ref=e1398] [cursor=pointer]: "2"
+          - generic [ref=e1399] [cursor=pointer]: "3"
+          - generic [ref=e1400] [cursor=pointer]: "4"
+          - generic [ref=e1401] [cursor=pointer]: "5"
+          - generic [ref=e1402] [cursor=pointer]: "6"
+          - generic [ref=e1403] [cursor=pointer]: "7"
+          - generic [ref=e1405]: ...
+          - generic [ref=e1406] [cursor=pointer]: 下一页
+          - generic [ref=e1407]: 共14页
+          - generic [ref=e1408]:
+            - generic [ref=e1409]: 到第
+            - textbox [ref=e1410]
+            - generic [ref=e1411]: 页
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - link:
+            - /url: "#"
+  - generic [ref=e1413]:
+    - list [ref=e1416]:
+      - listitem [ref=e1417]:
+        - generic [ref=e1418]:
+          - heading "多" [level=5] [ref=e1419]
+          - paragraph [ref=e1420]: 品类齐全，轻松购物
+      - listitem [ref=e1421]:
+        - generic [ref=e1422]:
+          - heading "快" [level=5] [ref=e1423]
+          - paragraph [ref=e1424]: 多仓直发，极速配送
+      - listitem [ref=e1425]:
+        - generic [ref=e1426]:
+          - heading "好" [level=5] [ref=e1427]
+          - paragraph [ref=e1428]: 正品行货，精致服务
+      - listitem [ref=e1429]:
+        - generic [ref=e1430]:
+          - heading "省" [level=5] [ref=e1431]
+          - paragraph [ref=e1432]: 天天低价，畅选无忧
+    - generic [ref=e1435]:
+      - generic [ref=e1436]:
+        - heading "购物指南" [level=5] [ref=e1437]
+        - list [ref=e1438]:
+          - listitem [ref=e1439]:
+            - link "购物流程" [ref=e1440] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-29.html
+          - listitem [ref=e1441]:
+            - link "会员介绍" [ref=e1442] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-151.html
+          - listitem [ref=e1443]:
+            - link "生活旅行" [ref=e1444] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-297.html
+          - listitem [ref=e1445]:
+            - link "常见问题" [ref=e1446] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue.html
+          - listitem [ref=e1447]:
+            - link "大家电" [ref=e1448] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-136.html
+          - listitem [ref=e1449]:
+            - link "联系客服" [ref=e1450] [cursor=pointer]:
+              - /url: //help.jd.com/user/custom.html
+      - generic [ref=e1451]:
+        - heading "配送方式" [level=5] [ref=e1452]
+        - list [ref=e1453]:
+          - listitem [ref=e1454]:
+            - link "上门自提" [ref=e1455] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-81-100.html
+          - listitem [ref=e1456]:
+            - link "211限时达" [ref=e1457] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-81.html
+          - listitem [ref=e1458]:
+            - link "配送服务查询" [ref=e1459] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-82.html
+          - listitem [ref=e1460]:
+            - link "配送费收取标准" [ref=e1461] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/109-188.html
+      - generic [ref=e1462]:
+        - heading "支付方式" [level=5] [ref=e1463]
+        - list [ref=e1464]:
+          - listitem [ref=e1465]:
+            - link "货到付款" [ref=e1466] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-172.html
+          - listitem [ref=e1467]:
+            - link "在线支付" [ref=e1468] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-173.html
+          - listitem [ref=e1469]:
+            - link "分期付款" [ref=e1470] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-176.html
+          - listitem [ref=e1471]:
+            - link "公司转账" [ref=e1472] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-175.html
+      - generic [ref=e1473]:
+        - heading "售后服务" [level=5] [ref=e1474]
+        - list [ref=e1475]:
+          - listitem [ref=e1476]:
+            - link "售后政策" [ref=e1477] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-112.html
+          - listitem [ref=e1478]:
+            - link "价格保护" [ref=e1479] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-132.html
+          - listitem [ref=e1480]:
+            - link "退款说明" [ref=e1481] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/130-978.html
+          - listitem [ref=e1482]:
+            - link "返修/退换货" [ref=e1483] [cursor=pointer]:
+              - /url: //myjd.jd.com/repair/repairs.action
+          - listitem [ref=e1484]:
+            - link "取消订单" [ref=e1485] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-50.html
+      - generic [ref=e1486]:
+        - heading "特色服务" [level=5] [ref=e1487]
+        - list [ref=e1488]:
+          - listitem [ref=e1489]:
+            - link "夺宝岛" [ref=e1490] [cursor=pointer]:
+              - /url: //paipai.jd.com/auction-list/
+          - listitem [ref=e1491]:
+            - link "DIY装机" [ref=e1492] [cursor=pointer]:
+              - /url: //help.jd.com/user/issue/list-134.html
+          - listitem [ref=e1493]:
+            - link "延保服务" [ref=e1494] [cursor=pointer]:
+              - /url: //fuwu.jd.com/
+          - listitem [ref=e1495]:
+            - link "京东E卡" [ref=e1496] [cursor=pointer]:
+              - /url: //o.jd.com/market/index.action
+          - listitem [ref=e1497]:
+            - link "京东通信" [ref=e1498] [cursor=pointer]:
+              - /url: //mobile.jd.com/
+          - listitem [ref=e1499]:
+            - link "京鱼座智能" [ref=e1500] [cursor=pointer]:
+              - /url: //smart.jd.com/
+    - generic [ref=e1501]:
+      - generic [ref=e1502]:
+        - paragraph [ref=e1503]:
+          - link "关于我们" [ref=e1504] [cursor=pointer]:
+            - /url: //about.jd.com
+          - generic [ref=e1505]: "|"
+          - link "联系我们" [ref=e1506] [cursor=pointer]:
+            - /url: //about.jd.com/contact
+          - generic [ref=e1507]: "|"
+          - link "联系客服" [ref=e1508] [cursor=pointer]:
+            - /url: //help.jd.com/user/custom.html
+          - generic [ref=e1509]: "|"
+          - link "合作招商" [ref=e1510] [cursor=pointer]:
+            - /url: //lai.jd.com
+          - generic [ref=e1511]: "|"
+          - link "商家帮助" [ref=e1512] [cursor=pointer]:
+            - /url: //helpcenter.jd.com/venderportal/index.html
+          - generic [ref=e1513]: "|"
+          - link "营销中心" [ref=e1514] [cursor=pointer]:
+            - /url: //jzt.jd.com
+          - generic [ref=e1515]: "|"
+          - link "手机京东" [ref=e1516] [cursor=pointer]:
+            - /url: //app.jd.com/
+          - generic [ref=e1517]: "|"
+          - link "友情链接" [ref=e1518] [cursor=pointer]:
+            - /url: //club.jd.com/links.aspx
+          - generic [ref=e1519]: "|"
+          - link "销售联盟" [ref=e1520] [cursor=pointer]:
+            - /url: //union.jd.com/index
+          - generic [ref=e1521]: "|"
+          - link "京东社区" [ref=e1522] [cursor=pointer]:
+            - /url: //pro.jd.com/mall/active/3WA2zN8wkwc9fL9TxAJXHh5Nj79u/index.html
+          - generic [ref=e1523]: "|"
+          - link "风险监测" [ref=e1524] [cursor=pointer]:
+            - /url: //pro.jd.com/mall/active/3TF25tMdrnURET8Ez1cW9hzfg3Jt/index.html
+          - generic [ref=e1525]: "|"
+          - link "质量公告" [ref=e1526] [cursor=pointer]:
+            - /url: //pro.jd.com/mall/active/2udA8Qxf3A54dVVseY5CdUMSgQPs/index.html
+          - generic [ref=e1527]: "|"
+          - link "隐私政策" [ref=e1528] [cursor=pointer]:
+            - /url: //about.jd.com/privacy/
+          - generic [ref=e1529]: "|"
+          - link "京东公益" [ref=e1530] [cursor=pointer]:
+            - /url: //gongyi.jd.com
+          - generic [ref=e1531]: "|"
+          - link "Media&IR" [ref=e1532] [cursor=pointer]:
+            - /url: //corporate.jd.com
+        - generic [ref=e1533]:
+          - generic [ref=e1534]:
+            - paragraph [ref=e1535]:
+              - link "京公网安备 11000002000088号" [ref=e1536] [cursor=pointer]:
+                - /url: http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000088
+              - generic [ref=e1537]: "|"
+              - link "京ICP备11041704号" [ref=e1538] [cursor=pointer]:
+                - /url: http://beian.miit.gov.cn
+              - generic [ref=e1539]: "|"
+              - link "ICP" [ref=e1540] [cursor=pointer]:
+                - /url: //h5.m.jd.com/pc/dev/3T3No18XR8k8rpLGLGhgbJ1StAFq/index.html
+              - generic [ref=e1541]: "|"
+              - link "药品医疗器械网络信息服务备案" [ref=e1542] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/2zRnBcZVhdAcWBMvBnoRcUdi3HBt/index.html
+              - generic [ref=e1543]: "|"
+              - link "自营医疗器械经营资质" [ref=e1544] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/MZXpsnbHS3omkFAk4R4jYwXTb4c/index.html
+              - generic [ref=e1545]: "|"
+              - link "药品网络交易第三方平台备案凭证" [ref=e1546] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/2pwvdCM94gBdWruSu82PkqzKyi3U/index.html
+              - generic [ref=e1547]: "|"
+              - text: 新出发京零 字第大120007号
+            - paragraph [ref=e1548]:
+              - text: 互联网出版许可证编号新出网证(京)字150号
+              - generic [ref=e1549]: "|"
+              - link "出版物经营许可证" [ref=e1550] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/3bVDLXHdwVmdQksGF8TtS7ocq1NY/index.html
+              - generic [ref=e1551]: "|"
+              - text: 违法和不良信息举报电话：4006561155
+              - generic [ref=e1552]: "|"
+              - text: Copyright © 2004 - 2026 京东JINGDONG 版权所有
+            - paragraph [ref=e1553]:
+              - link "经营证照" [ref=e1554] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/38PitHBfR7ZopNHRSHnuuWR5AMDL/index.html
+              - generic [ref=e1555]: "|"
+              - link "医疗器械第三方平台备案凭证（京）网械平台备字（2023）第00013号" [ref=e1556] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/36mqawDTyFwQpodmiJGf6bvPA8hs/index.html
+              - generic [ref=e1557]: "|"
+              - link "营业执照" [ref=e1558] [cursor=pointer]:
+                - /url: //h5.m.jd.com/babelDiy/Zeus/ARcYnJ8coUdUecn6UQAN6TDaVmH/index.html
+              - generic [ref=e1559]: "|"
+              - link "增值电信业务经营许可证" [ref=e1560] [cursor=pointer]:
+                - /url: //pro.jd.com/mall/active/3pNwSArkXgfvVYvejSxj44cRgPvQ/index.html
+          - paragraph [ref=e1562]:
+            - text: 京东旗下网站：
+            - link "京东钱包" [ref=e1563] [cursor=pointer]:
+              - /url: https://www.jdpay.com/
+            - generic [ref=e1564]: "|"
+            - link "京东云" [ref=e1565] [cursor=pointer]:
+              - /url: http://www.jdcloud.com
+            - generic [ref=e1566]: "|"
+            - text: 网络内容从业人员违法违规行为举报电话：4006561155-3
+      - paragraph [ref=e1567]:
+        - link "可信网站信用评估" [ref=e1568] [cursor=pointer]:
+          - /url: https://ss.knet.cn/verifyseal.dll?sn=2008070300100000031&ampct=df&amppa=294005
+        - link "网络警察提醒你" [ref=e1569] [cursor=pointer]:
+          - /url: http://cyberpolice.mps.gov.cn/
+        - link "诚信网站" [ref=e1570] [cursor=pointer]:
+          - /url: https://search.szfw.org/cert/l/CX20120111001803001836
+        - link "中国互联网举报中心" [ref=e1571] [cursor=pointer]:
+          - /url: http://www.12377.cn/
+        - link "网络举报APP下载" [ref=e1572] [cursor=pointer]:
+          - /url: http://www.12377.cn/node_548446.htm
+        - link "扫黄打非网举报专区" [ref=e1573] [cursor=pointer]:
+          - /url: https://www.shdf.gov.cn/
+        - link "适老化无障碍服务" [ref=e1574] [cursor=pointer]:
+          - /url: "#none"
+        - link "国家知识产权公共服务网" [ref=e1575] [cursor=pointer]:
+          - /url: https://ggfw.cnipa.gov.cn/home
+  - generic [ref=e1576]:
+    - list [ref=e1577]:
+      - listitem [ref=e1578]:
+        - link "1 购物车" [ref=e1579] [cursor=pointer]:
+          - /url: javascript:void(0)
+          - generic [ref=e1580]: "1"
+          - img [ref=e1582]
+          - generic [ref=e1583]: 购物车
+      - listitem [ref=e1584]:
+        - link "我的" [ref=e1585] [cursor=pointer]:
+          - /url: //home.jd.com/
+          - img [ref=e1587]
+          - generic [ref=e1589]: 我的
+      - listitem [ref=e1590]:
+        - link "客服" [ref=e1591] [cursor=pointer]:
+          - /url: //jdcs.jd.com/chat/index.action?venderId=1&entry=jd_web_jimi_jdhome
+          - img [ref=e1593]
+          - generic [ref=e1595]: 客服
+      - listitem [ref=e1596]:
+        - link "反馈" [ref=e1597] [cursor=pointer]:
+          - /url: https://wj-dongjian.jd.com/q/61961e975d82bb00a9002fc1
+          - img [ref=e1599]
+          - generic [ref=e1601]: 反馈
+      - listitem [ref=e1602]:
+        - link "插件版" [ref=e1604] [cursor=pointer]:
+          - /url: javascript:void(0)
+          - img [ref=e1606]
+          - generic [ref=e1607]: 插件版
+    - link "收起" [ref=e1609] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e1610]
+      - generic [ref=e1611]: 收起

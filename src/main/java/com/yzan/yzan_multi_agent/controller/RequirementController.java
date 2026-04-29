@@ -1,7 +1,7 @@
 package com.yzan.yzan_multi_agent.controller;
 
 import com.yzan.yzan_multi_agent.agent.RequirementAgent;
-import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
+import com.yzan.yzan_multi_agent.domain.RequirementUnderstandingResult;
 import com.yzan.yzan_multi_agent.domain.UserRequirement;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +15,8 @@ public class RequirementController {
         this.requirementAgent = requirementAgent;
     }
 
-    @PostMapping("/structure")
-    public StructuredRequirement structureRequirement(@RequestBody UserRequirement userRequirement) {
-        return requirementAgent.execute(userRequirement);
+    @PostMapping("/understand")
+    public RequirementUnderstandingResult understandRequirement(@RequestBody UserRequirement userRequirement) {
+        return requirementAgent.understand(userRequirement);
     }
 }

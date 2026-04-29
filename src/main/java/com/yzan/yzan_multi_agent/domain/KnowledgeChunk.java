@@ -6,6 +6,6 @@ import lombok.Data;
 public class KnowledgeChunk {
 
     private String sourceName; // 来源文件名
-    private String category;   // safety / budget / storage
+    private String category;   // SAFETY / BUDGET / LAYOUT / STORAGE
     private String content;    // 切分后的文本内容
 }

@@ -9,24 +9,33 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ClasspathKnowledgeLoader implements KnowledgeLoader {
 
-    private static final List<String> KNOWLEDGE_FILES = List.of(
-            "RAG/anti-slip-and-flooring.md",
-            "RAG/child-safe-design.md",
-            "RAG/corner-and-cabinet-safety.md",
-            "RAG/elderly-safety.md",
-            "RAG/pet-friendly-materials.md"
+    private static final Map<String, List<String>> KNOWLEDGE_FILE_DOMAINS = Map.ofEntries(
+            Map.entry("RAG/anti-slip-and-flooring.md", List.of("SAFETY", "BUDGET")),
+            Map.entry("RAG/budget-contractor-cost-control.md", List.of("BUDGET")),
+            Map.entry("RAG/budget-energy-efficiency-upgrades.md", List.of("BUDGET")),
+            Map.entry("RAG/child-safe-design.md", List.of("SAFETY")),
+            Map.entry("RAG/corner-and-cabinet-safety.md", List.of("SAFETY", "STORAGE")),
+            Map.entry("RAG/elderly-safety.md", List.of("SAFETY", "LAYOUT")),
+            Map.entry("RAG/layout-kitchen-bath-workflow.md", List.of("LAYOUT")),
+            Map.entry("RAG/layout-universal-design-accessibility.md", List.of("LAYOUT")),
+            Map.entry("RAG/pet-friendly-materials.md", List.of("SAFETY", "BUDGET", "LAYOUT", "STORAGE")),
+            Map.entry("RAG/safety-indoor-air-quality-remodeling.md", List.of("SAFETY")),
+            Map.entry("RAG/safety-moisture-lead-asbestos-remodeling.md", List.of("SAFETY")),
+            Map.entry("RAG/storage-closet-cabinet-planning.md", List.of("STORAGE")),
+            Map.entry("RAG/storage-kitchen-laundry-utility-systems.md", List.of("STORAGE"))
     );
-
 
     @Override
     public List<KnowledgeChunk> loadAllChunks() {
         List<KnowledgeChunk> chunks = new ArrayList<>();
 
-        for (String filePath : KNOWLEDGE_FILES) {
+        for (Map.Entry<String, List<String>> entry : KNOWLEDGE_FILE_DOMAINS.entrySet()) {
+            String filePath = entry.getKey();
             String content = readFileContent(filePath);
             if (content == null || content.isBlank()) {
                 continue;
@@ -38,10 +47,13 @@ public class ClasspathKnowledgeLoader implements KnowledgeLoader {
                     continue;
                 }
 
-                KnowledgeChunk chunk = new KnowledgeChunk();
-                chunk.setSourceName(filePath);
-                chunk.setContent(paragraph.trim());
-                chunks.add(chunk);
+                for (String domain : entry.getValue()) {
+                    KnowledgeChunk chunk = new KnowledgeChunk();
+                    chunk.setSourceName(filePath);
+                    chunk.setCategory(domain);
+                    chunk.setContent(paragraph.trim());
+                    chunks.add(chunk);
+                }
             }
         }
 

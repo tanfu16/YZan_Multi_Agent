@@ -1,24 +1,39 @@
 package com.yzan.yzan_multi_agent.controller;
 
+import com.yzan.yzan_multi_agent.domain.DecorationPlan;
+import com.yzan.yzan_multi_agent.domain.UserRequirement;
+import com.yzan.yzan_multi_agent.workflow.PlanGenerationService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 class PlanControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
+
+    private FakePlanGenerationService planGenerationService;
+
+    @BeforeEach
+    void setUp() {
+        planGenerationService = new FakePlanGenerationService();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(new PlanController(planGenerationService))
+                .build();
+    }
 
     @Test
     void shouldPrintDecorationPlanResponse() throws Exception {
+        DecorationPlan plan = new DecorationPlan();
+        plan.setSummary("测试方案摘要");
+        planGenerationService.plan = plan;
+
         String requestBody = """
                 {
                   \"houseType\": \"两室一厅\",
@@ -34,6 +49,7 @@ class PlanControllerTest {
         MvcResult result = mockMvc.perform(post("/api/plans/generate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
+                .andExpect(status().isOk())
                 .andReturn();
 
         System.out.println("========== PlanController Response ==========");
@@ -42,5 +58,40 @@ class PlanControllerTest {
         System.out.println("ResponseBody = ");
         System.out.println(result.getResponse().getContentAsString());
         System.out.println("============================================");
+
+        assertThat(planGenerationService.callCount).isEqualTo(1);
+    }
+
+    @Test
+    void shouldForwardAnyInputToPlanGenerationWithoutIntentValidation() throws Exception {
+        DecorationPlan plan = new DecorationPlan();
+        plan.setSummary("通用方案摘要");
+        planGenerationService.plan = plan;
+
+        String requestBody = """
+                {
+                  \"rawDescription\": \"你好\"
+                }
+                """;
+
+        mockMvc.perform(post("/api/plans/generate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk());
+
+        assertThat(planGenerationService.callCount).isEqualTo(1);
+    }
+
+    private static class FakePlanGenerationService implements PlanGenerationService {
+
+        private DecorationPlan plan;
+
+        private int callCount;
+
+        @Override
+        public DecorationPlan execute(UserRequirement userRequirement) {
+            callCount++;
+            return plan;
+        }
     }
 }

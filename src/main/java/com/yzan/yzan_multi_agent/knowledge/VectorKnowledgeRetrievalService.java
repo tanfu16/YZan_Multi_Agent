@@ -2,13 +2,9 @@ package com.yzan.yzan_multi_agent.knowledge;
 
 import com.yzan.yzan_multi_agent.domain.KnowledgeChunk;
 import com.yzan.yzan_multi_agent.domain.StructuredRequirement;
+import com.yzan.yzan_multi_agent.persistence.record.KnowledgeChunkRecord;
 import dev.langchain4j.community.model.dashscope.QwenEmbeddingModel;
 import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
-import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
-import dev.langchain4j.store.embedding.EmbeddingSearchResult;
-import dev.langchain4j.store.embedding.EmbeddingStore;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +15,11 @@ import java.util.List;
 public class VectorKnowledgeRetrievalService implements KnowledgeRetrievalService {
 
     private final QwenEmbeddingModel qwenEmbeddingModel;
-    private final EmbeddingStore<TextSegment> embeddingStore;
     private final PersistedKnowledgeChunkService persistedKnowledgeChunkService;
 
     public VectorKnowledgeRetrievalService(QwenEmbeddingModel qwenEmbeddingModel,
-                                           EmbeddingStore<TextSegment> embeddingStore,
                                            PersistedKnowledgeChunkService persistedKnowledgeChunkService) {
         this.qwenEmbeddingModel = qwenEmbeddingModel;
-        this.embeddingStore = embeddingStore;
         this.persistedKnowledgeChunkService = persistedKnowledgeChunkService;
     }
 
@@ -56,20 +49,17 @@ public class VectorKnowledgeRetrievalService implements KnowledgeRetrievalServic
         System.out.println(queryText);
 
         Embedding queryEmbedding = qwenEmbeddingModel.embed(queryText).content();
+        List<KnowledgeChunkRecord> matches = persistedKnowledgeChunkService.searchSimilar(
+                agentName,
+                queryEmbedding.vectorAsList(),
+                0.5,
+                5
+        );
 
-        EmbeddingSearchRequest request = EmbeddingSearchRequest.builder()
-                .queryEmbedding(queryEmbedding)
-                .maxResults(5)
-                .minScore(0.5)
-                .build();
-
-        EmbeddingSearchResult<TextSegment> searchResult = embeddingStore.search(request);
-        List<EmbeddingMatch<TextSegment>> matches = searchResult.matches();
-
-        System.out.println(agentName + " vector search matches count = " + matches.size());
+        System.out.println(agentName + " pgvector search matches count = " + matches.size());
 
         List<KnowledgeChunk> chunks = matches.stream()
-                .map(match -> toKnowledgeChunk(match.embedded()))
+                .map(this::toKnowledgeChunk)
                 .toList();
 
         printMatchedChunks(agentName, chunks);
@@ -113,15 +103,12 @@ public class VectorKnowledgeRetrievalService implements KnowledgeRetrievalServic
         );
     }
 
-    private KnowledgeChunk toKnowledgeChunk(TextSegment segment) {
+    private KnowledgeChunk toKnowledgeChunk(KnowledgeChunkRecord record) {
         KnowledgeChunk chunk = new KnowledgeChunk();
-        chunk.setContent(segment.text());
-        chunk.setSourceName(resolveSourceName(segment.text()));
+        chunk.setCategory(record.getAgentDomain());
+        chunk.setContent(record.getContent());
+        chunk.setSourceName(record.getSourceName());
         return chunk;
-    }
-
-    private String resolveSourceName(String content) {
-        return persistedKnowledgeChunkService.resolveSourceName(content);
     }
 
     private String safe(Object value) {

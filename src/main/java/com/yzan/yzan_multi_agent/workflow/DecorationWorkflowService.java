@@ -15,17 +15,19 @@ import com.yzan.yzan_multi_agent.persistence.mapper.RequirementRecordMapper;
 import com.yzan.yzan_multi_agent.persistence.record.AgentExecutionRecord;
 import com.yzan.yzan_multi_agent.persistence.record.PlanRecord;
 import com.yzan.yzan_multi_agent.persistence.record.RequirementRecord;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
 @Service
-public class DecorationWorkflowService {
+public class DecorationWorkflowService implements PlanGenerationService {
 
     private final RequirementAgent requirementAgent;
     private final LayoutAgent layoutAgent;
@@ -37,6 +39,7 @@ public class DecorationWorkflowService {
     private final RequirementRecordMapper requirementRecordMapper;
     private final AgentExecutionRecordMapper agentExecutionRecordMapper;
     private final PlanRecordMapper planRecordMapper;
+    private final ThreadPoolExecutor agentWorkflowThreadPoolExecutor;
 
 
     public DecorationWorkflowService(
@@ -49,7 +52,8 @@ public class DecorationWorkflowService {
             ObjectMapper objectMapper,
             RequirementRecordMapper requirementRecordMapper,
             AgentExecutionRecordMapper agentExecutionRecordMapper,
-            PlanRecordMapper planRecordMapper
+            PlanRecordMapper planRecordMapper,
+            @Qualifier("agentWorkflowThreadPoolExecutor") ThreadPoolExecutor agentWorkflowThreadPoolExecutor
     ) {
         this.requirementAgent = requirementAgent;
         this.layoutAgent = layoutAgent;
@@ -61,17 +65,23 @@ public class DecorationWorkflowService {
         this.requirementRecordMapper = requirementRecordMapper;
         this.agentExecutionRecordMapper = agentExecutionRecordMapper;
         this.planRecordMapper = planRecordMapper;
+        this.agentWorkflowThreadPoolExecutor = agentWorkflowThreadPoolExecutor;
     }
 
 
 
+    @Override
     public DecorationPlan execute(UserRequirement userRequirement){
+        StructuredRequirement structuredRequirement = requirementAgent.execute(userRequirement);
+        return execute(userRequirement, structuredRequirement);
+    }
+
+    @Override
+    public DecorationPlan execute(UserRequirement userRequirement, StructuredRequirement structuredRequirement){
         String requestId = UUID.randomUUID().toString();
         String sessionId = (userRequirement.getSessionId() != null && !userRequirement.getSessionId().isBlank()) ? userRequirement.getSessionId().trim() : UUID.randomUUID().toString();
         String parentRequestId = null;
         String userId = null;
-
-        StructuredRequirement structuredRequirement = requirementAgent.execute(userRequirement);
 
         // 构建 requirementRecord
         RequirementRecord requirementRecord = buildRequirementRecord(
@@ -86,23 +96,15 @@ public class DecorationWorkflowService {
         requirementRecordMapper.insert(requirementRecord);
         System.out.println("RequirementRecord saved, id = " + requirementRecord.getId());
 
-        // 四个并行 Agent 异步启动，互不等待
+        // 四个并行 Agent 显式提交到 ThreadPoolExecutor 执行。
         CompletableFuture<AgentResult> layoutFuture =
-                CompletableFuture.supplyAsync(() -> layoutAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.LAYOUT, "布局分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.LAYOUT, "布局分析失败，已返回降级结果"));
+                submitAgentTask(() -> layoutAgent.execute(structuredRequirement), AgentType.LAYOUT, "布局分析");
         CompletableFuture<AgentResult> budgetFuture =
-                CompletableFuture.supplyAsync(() -> budgetAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.BUDGET, "预算分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.BUDGET, "预算分析失败，已返回降级结果"));
+                submitAgentTask(() -> budgetAgent.execute(structuredRequirement), AgentType.BUDGET, "预算分析");
         CompletableFuture<AgentResult> safetyFuture =
-                CompletableFuture.supplyAsync(() -> safetyAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.SAFETY, "安全分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.SAFETY, "安全分析失败，已返回降级结果"));
+                submitAgentTask(() -> safetyAgent.execute(structuredRequirement), AgentType.SAFETY, "安全分析");
         CompletableFuture<AgentResult> storageFuture =
-                CompletableFuture.supplyAsync(() -> storageAgent.execute(structuredRequirement))
-                        .completeOnTimeout(buildTimeoutResult(AgentType.STORAGE, "收纳分析超时，已降级"), 3, TimeUnit.MINUTES)
-                        .exceptionally(ex -> buildFailedResult(AgentType.STORAGE, "收纳分析失败，已返回降级结果"));
+                submitAgentTask(() -> storageAgent.execute(structuredRequirement), AgentType.STORAGE, "收纳分析");
 
         // 等待 4 个任务全部结束，先执行完的 Agent 会在这里汇合
         CompletableFuture.allOf(layoutFuture, budgetFuture, safetyFuture, storageFuture).join();
@@ -238,6 +240,14 @@ public class DecorationWorkflowService {
     }
 
     // 异常策略：为失败或超时的 Agent 填充统一 AgentResult，避免阻断整体流程。
+    private CompletableFuture<AgentResult> submitAgentTask(java.util.function.Supplier<AgentResult> task,
+                                                           AgentType agentType,
+                                                           String agentLabel) {
+        return CompletableFuture.supplyAsync(task, agentWorkflowThreadPoolExecutor)
+                .completeOnTimeout(buildTimeoutResult(agentType, agentLabel + "超时，已降级"), 3, TimeUnit.MINUTES)
+                .exceptionally(ex -> buildFailedResult(agentType, agentLabel + "失败，已返回降级结果"));
+    }
+
     // 1. Agent 失败降级策略
     private AgentResult buildFailedResult(AgentType agentType, String message) {
         AgentResult result = new AgentResult();
@@ -263,4 +273,3 @@ public class DecorationWorkflowService {
 
 
 }
-

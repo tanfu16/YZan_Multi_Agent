@@ -25,44 +25,35 @@ async function handleAutoRoute() {
         return;
     }
 
-    if (looksLikeSkillRequest(text)) {
-        await handleSkillRequest();
-        return;
-    }
-
-    await handlePlanRequest();
-}
-
-async function handlePlanRequest() {
-    const text = currentInput();
-    if (!text) {
-        return;
-    }
-
     addUserMessage(text);
     chatInput.value = "";
 
-    await withButtonsDisabled("正在生成方案...", async () => {
-        addAssistantMessage("我先把你的自然语言需求直接交给后端工作流，让 Requirement Agent 去做结构化，再生成最终装修方案。");
-        const result = await postJson("/api/plans/generate", buildPlanPayload(text));
-        addAssistantHtml(renderPlanConversation(result));
+    await withButtonsDisabled(async () => {
+        await handleConversationRequest(text);
     });
 }
 
-async function handleSkillRequest() {
-    const text = currentInput();
-    if (!text) {
+async function handleConversationRequest(text) {
+    const result = await postJson("/api/conversations/handle", buildPlanPayload(text));
+    renderConversationResponse(result);
+}
+
+function renderConversationResponse(result) {
+    const route = (result?.intentType || "").toUpperCase();
+
+    if (route === "GENERAL_CHAT") {
+        addAssistantMessage(result?.reply || "你好，你可以继续告诉我装修需求。");
         return;
     }
 
-    addUserMessage(text);
-    chatInput.value = "";
+    if (route === "SKILL_CALL") {
+        addAssistantMessage("我理解这是一个 skill 调用请求，现在开始为你执行对应能力。");
+        addAssistantHtml(renderSkillConversation(result?.skillExecutionResult || {}));
+        return;
+    }
 
-    await withButtonsDisabled("正在执行 Skill...", async () => {
-        addAssistantMessage("我会先判断这句话更像线下门店搜索还是线上商品搜索，再走对应的 skill 和 MCP。");
-        const result = await postJson("/api/skills/execute", inferSkillPayload(text));
-        addAssistantHtml(renderSkillConversation(result));
-    });
+    addAssistantMessage("我理解这是一个装修方案请求，现在开始为你生成方案。");
+    addAssistantHtml(renderPlanConversation(result?.decorationPlan || {}));
 }
 
 function buildPlanPayload(text) {
@@ -90,6 +81,43 @@ function inferSkillPayload(text) {
 
 function looksLikeSkillRequest(text) {
     return containsAny(text, ["哪里买", "附近", "门店", "建材市场", "京东", "淘宝", "搜几款", "候选商品", "商品"]);
+}
+
+function looksLikePlanRequest(text) {
+    const normalized = text.trim().toLowerCase();
+    if (looksLikeSmallTalk(normalized)) {
+        return false;
+    }
+
+    if (inferArea(text) || inferBudget(text) || inferHouseType(text)) {
+        return true;
+    }
+
+    return containsAny(normalized, [
+        "装修", "设计", "方案", "改造", "翻新", "软装", "硬装", "全屋",
+        "户型", "客厅", "卧室", "厨房", "卫生间", "阳台", "玄关", "儿童房", "老人房",
+        "一室", "二室", "两室", "三室", "四室", "五室", "1室", "2室", "3室", "4室", "5室",
+        "预算", "风格", "收纳", "动线", "防滑", "耐磨", "好打理", "宠物", "孩子", "老人",
+        "平米", "平方米", "㎡"
+    ]);
+}
+
+function looksLikeSmallTalk(text) {
+    const compact = text.replace(/[\s，。,\.!！?？~～呀啊呢哈]/g, "");
+    if (!compact) {
+        return true;
+    }
+
+    const smallTalk = ["你好", "您好", "嗨", "hi", "hello", "在吗", "谢谢", "感谢", "早上好", "下午好", "晚上好"];
+    return smallTalk.includes(compact) || (compact.length <= 6 && containsAny(compact, smallTalk));
+}
+
+function buildGeneralChatReply(text) {
+    if (containsAny(text, ["谢谢", "感谢"])) {
+        return "不客气。我可以帮你生成装修方案，也可以帮你找附近建材门店或线上家具商品。";
+    }
+
+    return "你好，我是装修方案助手。你可以告诉我户型、面积、预算、风格和家庭成员需求，我再为你生成完整装修方案。";
 }
 
 function inferLocation(text) {
@@ -341,12 +369,10 @@ async function postJson(url, payload) {
     return response.json();
 }
 
-async function withButtonsDisabled(statusText, action) {
+async function withButtonsDisabled(action) {
     const buttons = [sendBtn];
-    const originalTexts = buttons.map(button => button.textContent);
-    buttons.forEach((button, index) => {
+    buttons.forEach((button) => {
         button.disabled = true;
-        button.textContent = statusText;
     });
 
     try {
@@ -355,9 +381,8 @@ async function withButtonsDisabled(statusText, action) {
         const message = error instanceof Error ? error.message : String(error);
         addAssistantMessage(`请求失败：${message}`);
     } finally {
-        buttons.forEach((button, index) => {
+        buttons.forEach((button) => {
             button.disabled = false;
-            button.textContent = originalTexts[index];
         });
     }
 }
@@ -369,7 +394,7 @@ function clearConversation() {
             <div class="avatar">AI</div>
             <div class="bubble">
                 <p class="message-label">系统提示</p>
-                <p>直接输入一句话就可以开始。我会根据内容决定是走装修方案生成，还是走 skill + MCP 外部能力。</p>
+                <p>直接输入一句话就可以开始，我会先理解你的请求，再决定是正常回复、生成装修方案，还是调用 skill。</p>
             </div>
         </article>
     `;
@@ -410,4 +435,3 @@ function getOrCreateSessionId() {
 function resetSessionId() {
     window.localStorage.removeItem('yzan-chat-session-id');
 }
-
